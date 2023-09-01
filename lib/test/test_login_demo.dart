@@ -6,14 +6,14 @@ import 'package:flutter_pdf_library/data/services/network_caller.dart';
 import 'package:flutter_pdf_library/data/urls.dart';
 import 'package:flutter_pdf_library/test/test_homepage.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+class LoginScreenDemo extends StatefulWidget {
+  const LoginScreenDemo({Key? key}) : super(key: key);
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<LoginScreenDemo> createState() => _LoginScreenDemoState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginScreenDemoState extends State<LoginScreenDemo> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _emailTEController = TextEditingController();
   final TextEditingController _passwordTEController = TextEditingController();
