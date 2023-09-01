@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_pdf_library/data/services/auth_utility.dart';
-import 'package:flutter_pdf_library/data/services/login_model.dart';
+import 'package:flutter_pdf_library/data/models/auth_utility.dart';
+import 'package:flutter_pdf_library/data/models/login_model.dart';
+import 'package:flutter_pdf_library/data/models/network_response.dart';
 import 'package:flutter_pdf_library/data/services/network_caller.dart';
-import 'package:flutter_pdf_library/data/services/network_response.dart';
 import 'package:flutter_pdf_library/data/urls.dart';
+import 'package:flutter_pdf_library/test/test_homepage.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -41,10 +42,10 @@ class _LoginScreenState extends State<LoginScreen> {
       await AuthUtility.saveUserInfo(model);
       if (mounted) {
         print("Login Sucess");
-        // Navigator.pushAndRemoveUntil(
-        //     context,
-        //     MaterialPageRoute(builder: (context) => const BottomNavbarScreen()),
-        //         (route) => false);
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => const HomePageTest()),
+                (route) => false);
       }
     } else {
       if (mounted) {
@@ -126,20 +127,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   const SizedBox(
                     height: 25,
                   ),
-                  Center(
-                    // child: TextButton(
-                    //     onPressed: () {
-                    //       Navigator.push(
-                    //           context,
-                    //           MaterialPageRoute(
-                    //               builder: (context) =>
-                    //               const EmailVerificationScreen()));
-                    //     },
-                    //     child: const Text(
-                    //       "Forgot Password",
-                    //       style: TextStyle(color: Colors.grey),
-                    //     )),
-                  ),
+
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -150,14 +138,6 @@ class _LoginScreenState extends State<LoginScreen> {
                             fontWeight: FontWeight.w400,
                             letterSpacing: 0.3),
                       ),
-                      // TextButton(
-                      //     onPressed: () {
-                      //       Navigator.push(
-                      //           context,
-                      //           MaterialPageRoute(
-                      //               builder: (context) => const SignUpScreen()));
-                      //     },
-                      //     child: const Text("Sign Up"))
                     ],
                   )
                 ],

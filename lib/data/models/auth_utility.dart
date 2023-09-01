@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:flutter_pdf_library/data/services/login_model.dart';
+import 'package:flutter_pdf_library/data/models/login_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthUtility {
