@@ -3,7 +3,7 @@ import 'package:flutter_pdf_library/data/models/auth_utility.dart';
 import 'package:flutter_pdf_library/data/models/login_model.dart';
 import 'package:flutter_pdf_library/data/models/network_response.dart';
 import 'package:flutter_pdf_library/data/services/network_caller.dart';
-import 'package:flutter_pdf_library/data/urls.dart';
+import 'package:flutter_pdf_library/data/utils/urls.dart';
 import 'package:flutter_pdf_library/presentation/custom_widgets/responsive_widgets.dart';
 import 'package:flutter_pdf_library/presentation/ui_component/app_colors.dart';
 import 'package:flutter_pdf_library/presentation/ui_component/app_icons.dart';
@@ -200,17 +200,24 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         child: TextFormField(
                           controller: _passwordTEController,
+                          keyboardType: TextInputType.visiblePassword,
+                          obscureText: !_passwordVisible,
                           style: ralewayStyle.copyWith(
                             fontWeight: FontWeight.w400,
                             color: AppColors.blueDarkColor,
                             fontSize: 12.0,
                           ),
-                          obscureText: true,
                           decoration: InputDecoration(
                             border: InputBorder.none,
                             suffixIcon: IconButton(
-                              onPressed: () {},
-                              icon: Image.asset(AppIcons.eyeIcon),
+                              icon: _passwordVisible
+                                  ? const Icon(Icons.visibility)
+                                  : const Icon(Icons.visibility_off),
+                              onPressed: () {
+                                setState(() {
+                                  _passwordVisible = !_passwordVisible;
+                                });
+                              },
                             ),
                             prefixIcon: IconButton(
                               onPressed: () {},
@@ -244,24 +251,28 @@ class _LoginScreenState extends State<LoginScreen> {
                       SizedBox(height: height * 0.05),
                       Material(
                         color: Colors.transparent,
-                        child: InkWell(
-                          onTap: () {
-                            logIn();
-                          },
-                          borderRadius: BorderRadius.circular(16.0),
-                          child: Ink(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 70.0, vertical: 18.0),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(16.0),
-                              color: AppColors.mainBlueColor,
-                            ),
-                            child: Text(
-                              'Sign In',
-                              style: ralewayStyle.copyWith(
-                                fontWeight: FontWeight.w700,
-                                color: AppColors.whiteColor,
-                                fontSize: 16.0,
+                        child: Visibility(
+                          visible: _signInProgress == false,
+                          replacement: Center(child: CircularProgressIndicator()),
+                          child: InkWell(
+                            onTap: () {
+                              logIn();
+                            },
+                            borderRadius: BorderRadius.circular(16.0),
+                            child: Ink(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 70.0, vertical: 18.0),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(16.0),
+                                color: AppColors.mainBlueColor,
+                              ),
+                              child: Text(
+                                'Sign In',
+                                style: ralewayStyle.copyWith(
+                                  fontWeight: FontWeight.w700,
+                                  color: AppColors.whiteColor,
+                                  fontSize: 16.0,
+                                ),
                               ),
                             ),
                           ),

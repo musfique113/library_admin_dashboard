@@ -3,7 +3,7 @@ import 'package:flutter_pdf_library/data/models/auth_utility.dart';
 import 'package:flutter_pdf_library/data/models/login_model.dart';
 import 'package:flutter_pdf_library/data/models/network_response.dart';
 import 'package:flutter_pdf_library/data/services/network_caller.dart';
-import 'package:flutter_pdf_library/data/urls.dart';
+import 'package:flutter_pdf_library/data/utils/urls.dart';
 import 'package:flutter_pdf_library/test/test_homepage.dart';
 
 class LoginScreenDemo extends StatefulWidget {
