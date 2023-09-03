@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
-
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_pdf_library/data/models/auth_utility.dart';
 import 'package:flutter_pdf_library/data/models/network_response.dart';
@@ -11,7 +11,8 @@ import 'package:http/http.dart';
 class NetworkCaller {
   Future<NetworkResponse> getRequest(String url) async {
     try {
-      Response response = await get(Uri.parse(url), headers: {
+      Response response = await get(Uri.parse(url),
+          headers: {
         'access_token': AuthUtility.userInfo.accessToken.toString()
       });
       log(response.statusCode.toString());
@@ -37,7 +38,7 @@ class NetworkCaller {
         Uri.parse(url),
         headers: {
           'Content-Type': 'application/json',
-          'access_token': AuthUtility.userInfo.accessToken.toString()
+          HttpHeaders.authorizationHeader: AuthUtility.userInfo.accessToken.toString()
         },
         body: jsonEncode(body),
       );
@@ -61,6 +62,7 @@ class NetworkCaller {
     }
     return NetworkResponse(false, -1, null);
   }
+
 
   Future<void> gotoLogin() async {
     await AuthUtility.clearUserInfo();
