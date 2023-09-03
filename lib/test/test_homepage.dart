@@ -11,10 +11,12 @@ class _HomePageTestState extends State<HomePageTest> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("test"),),
+      appBar: AppBar(
+        title: Text("test"),
+      ),
       body: Center(
         child: Text("Login SucesadsfadgsFulldfg"),
-    ),
+      ),
     );
   }
 }

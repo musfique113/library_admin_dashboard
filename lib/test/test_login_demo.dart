@@ -31,7 +31,7 @@ class _LoginScreenDemoState extends State<LoginScreenDemo> {
     };
 
     final NetworkResponse response =
-    await NetworkCaller().postRequest(Urls.login, requestBody);
+        await NetworkCaller().postRequest(Urls.login, requestBody);
     _signInProgress = false;
     if (mounted) {
       setState(() {});
@@ -45,7 +45,7 @@ class _LoginScreenDemoState extends State<LoginScreenDemo> {
         Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(builder: (context) => const HomePageTest()),
-                (route) => false);
+            (route) => false);
       }
     } else {
       if (mounted) {
@@ -59,93 +59,92 @@ class _LoginScreenDemoState extends State<LoginScreenDemo> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(24),
-            child: Form(
-              key: _formKey,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    "Get Started with",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        color: Colors.black87,
-                        fontSize: 36,
-                        letterSpacing: 0.6),
+        child: Padding(
+          padding: const EdgeInsets.all(24),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  "Get Started with",
+                  style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      color: Colors.black87,
+                      fontSize: 36,
+                      letterSpacing: 0.6),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                TextFormField(
+                  controller: _emailTEController,
+                  keyboardType: TextInputType.emailAddress,
+                  decoration: const InputDecoration(
+                    hintText: "Email",
                   ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  TextFormField(
-                      controller: _emailTEController,
-                      keyboardType: TextInputType.emailAddress,
-                      decoration: const InputDecoration(
-                        hintText: "Email",
-                      ),
-               ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  TextFormField(
-                      controller: _passwordTEController,
-                      keyboardType: TextInputType.visiblePassword,
-                      obscureText: !_passwordVisible,
-                      decoration: InputDecoration(
-                        hintText: "Password",
-                        suffixIcon: IconButton(
-                          icon: _passwordVisible
-                              ? const Icon(Icons.visibility)
-                              : const Icon(Icons.visibility_off),
-                          onPressed: () {
-                            setState(() {
-                              _passwordVisible = !_passwordVisible;
-                            });
-                          },
-                        ),
-                      ),
-                     ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  SizedBox(
-                    width: double.infinity,
-                    child: Visibility(
-                      visible: _signInProgress == false,
-                      replacement: const Center(child: CircularProgressIndicator()),
-                      child: ElevatedButton(
-                          onPressed: () {
-                            if (!_formKey.currentState!.validate()) {
-                              return;
-                            }
-                            logIn();
-                          },
-                          child: const Icon(Icons.arrow_forward_ios)),
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                TextFormField(
+                  controller: _passwordTEController,
+                  keyboardType: TextInputType.visiblePassword,
+                  obscureText: !_passwordVisible,
+                  decoration: InputDecoration(
+                    hintText: "Password",
+                    suffixIcon: IconButton(
+                      icon: _passwordVisible
+                          ? const Icon(Icons.visibility)
+                          : const Icon(Icons.visibility_off),
+                      onPressed: () {
+                        setState(() {
+                          _passwordVisible = !_passwordVisible;
+                        });
+                      },
                     ),
                   ),
-                  const SizedBox(
-                    height: 25,
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                SizedBox(
+                  width: double.infinity,
+                  child: Visibility(
+                    visible: _signInProgress == false,
+                    replacement:
+                        const Center(child: CircularProgressIndicator()),
+                    child: ElevatedButton(
+                        onPressed: () {
+                          if (!_formKey.currentState!.validate()) {
+                            return;
+                          }
+                          logIn();
+                        },
+                        child: const Icon(Icons.arrow_forward_ios)),
                   ),
-
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text(
-                        "Don't have an account?",
-                        style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            letterSpacing: 0.3),
-                      ),
-                    ],
-                  )
-                ],
-              ),
+                ),
+                const SizedBox(
+                  height: 25,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      "Don't have an account?",
+                      style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                          letterSpacing: 0.3),
+                    ),
+                  ],
+                )
+              ],
             ),
           ),
         ),
-
+      ),
     );
   }
 }

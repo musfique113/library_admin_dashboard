@@ -1,9 +1,11 @@
 import 'dart:convert';
+
 import 'package:flutter_pdf_library/data/models/login_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthUtility {
   AuthUtility._();
+
   static LoginModel userInfo = LoginModel();
 
   static Future<void> saveUserInfo(LoginModel model) async {
@@ -31,6 +33,4 @@ class AuthUtility {
     }
     return isLogin;
   }
-
-
 }

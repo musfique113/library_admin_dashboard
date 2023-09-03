@@ -5,10 +5,10 @@ import 'package:flutter_pdf_library/data/models/network_response.dart';
 import 'package:flutter_pdf_library/data/services/network_caller.dart';
 import 'package:flutter_pdf_library/data/utils/urls.dart';
 import 'package:flutter_pdf_library/presentation/custom_widgets/responsive_widgets.dart';
+import 'package:flutter_pdf_library/presentation/screens/admin_dashboard_ui/widget_tree.dart';
 import 'package:flutter_pdf_library/presentation/ui_component/app_colors.dart';
 import 'package:flutter_pdf_library/presentation/ui_component/app_icons.dart';
 import 'package:flutter_pdf_library/presentation/ui_component/app_style.dart';
-import 'package:flutter_pdf_library/test/test_homepage.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -48,7 +48,7 @@ class _LoginScreenState extends State<LoginScreen> {
         print("Login Sucess");
         Navigator.pushAndRemoveUntil(
             context,
-            MaterialPageRoute(builder: (context) => const HomePageTest()),
+            MaterialPageRoute(builder: (context) => WidgetTree()),
             (route) => false);
       }
     } else {
@@ -72,7 +72,7 @@ class _LoginScreenState extends State<LoginScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            ResponsiveWidget.isSmallScreen(context)
+            ResponsiveLayout.isPhone(context)
                 ? const SizedBox()
                 : Expanded(
                     child: Container(
@@ -94,7 +94,7 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Container(
                 height: height,
                 margin: EdgeInsets.symmetric(
-                    horizontal: ResponsiveWidget.isSmallScreen(context)
+                    horizontal: ResponsiveLayout.isPhone(context)
                         ? height * 0.032
                         : height * 0.12),
                 color: AppColors.backColor,
@@ -253,7 +253,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         color: Colors.transparent,
                         child: Visibility(
                           visible: _signInProgress == false,
-                          replacement: Center(child: CircularProgressIndicator()),
+                          replacement:
+                              Center(child: CircularProgressIndicator()),
                           child: InkWell(
                             onTap: () {
                               logIn();
