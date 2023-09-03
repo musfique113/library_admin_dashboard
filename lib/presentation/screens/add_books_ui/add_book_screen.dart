@@ -1,12 +1,12 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_pdf_library/data/models/auth_utility.dart';
 import 'package:flutter_pdf_library/data/models/network_response.dart';
 import 'package:flutter_pdf_library/data/services/network_caller.dart';
 import 'package:flutter_pdf_library/data/utils/urls.dart';
-import 'package:http/http.dart' as http;
+import 'package:flutter_pdf_library/presentation/screens/admin_login_ui/admin_login_screen.dart';
 import 'package:image_picker/image_picker.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -27,14 +27,13 @@ class _MyHomePageState extends State<MyHomePage> {
   ImagePicker picker = ImagePicker();
 
   File? pdf;
+
   //FilePicker _filePicker = FilePicker();
   String _fileText = "";
 
   bool _addBookInProgress = false;
 
-
   Future<void> addBooksToServer() async {
-
     _addBookInProgress = true;
     setState(() {});
 
@@ -51,8 +50,9 @@ class _MyHomePageState extends State<MyHomePage> {
     };
 
     final NetworkResponse response =
-    await NetworkCaller().postRequest(Urls.addBooks, requestBody);
+        await NetworkCaller().postRequest(Urls.addBooks, requestBody);
     _addBookInProgress = false;
+
     if (mounted) {
       setState(() {});
     }
@@ -60,14 +60,14 @@ class _MyHomePageState extends State<MyHomePage> {
     if (response.isSuccess) {
       if (mounted) {
         print("Upload Successful");
-        ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Upload Successful')));
+        ScaffoldMessenger.of(context)
+            .showSnackBar(const SnackBar(content: Text('Upload Successful')));
       }
     } else {
       if (mounted) {
         print("Upload Failed");
-        ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Upload Failed')));
+        ScaffoldMessenger.of(context)
+            .showSnackBar(const SnackBar(content: Text('Upload Failed')));
       }
     }
   }
@@ -186,6 +186,10 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Text('Send Data to Server'),
             ),
             SizedBox(height: 20.0),
+            ElevatedButton(
+              onPressed: logOut,
+              child: Text('Log-Out'),
+            ),
           ],
         ),
       ),
@@ -203,25 +207,30 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-void selectPDF() async{
-    FilePickerResult? result = await FilePicker.platform.pickFiles(type: FileType.custom,allowedExtensions: ['pdf']);
+  void selectPDF() async {
+    FilePickerResult? result = await FilePicker.platform
+        .pickFiles(type: FileType.custom, allowedExtensions: ['pdf']);
     if (result != null) {
       File file = File(result.files.single.path ?? "");
       String fileName = file.path.split('/').last;
       String filePath = file.path;
       print(fileName);
       print(filePath);
-
-
       setState(() {
         _fileText = file.path;
       });
-
-
     } else {
       // User canceled the picker
     }
   }
 
-
+  void logOut() async {
+    await AuthUtility.clearUserInfo();
+    if (mounted) {
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => const LoginScreen()),
+          (route) => false);
+    }
+  }
 }

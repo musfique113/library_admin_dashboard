@@ -258,6 +258,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           child: InkWell(
                             onTap: () {
                               logIn();
+                              print("AccessToken: ${AuthUtility.userInfo.accessToken.toString()}");
                             },
                             borderRadius: BorderRadius.circular(16.0),
                             child: Ink(
