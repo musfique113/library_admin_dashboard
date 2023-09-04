@@ -1,18 +1,18 @@
+import 'dart:convert';
 import 'dart:io';
-
+import 'package:http/http.dart' as http;
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_pdf_library/data/models/auth_utility.dart';
-import 'package:flutter_pdf_library/data/models/network_response.dart';
-import 'package:flutter_pdf_library/data/services/network_caller.dart';
-import 'package:flutter_pdf_library/data/utils/urls.dart';
 import 'package:flutter_pdf_library/presentation/custom_widgets/responsive_widgets.dart';
 import 'package:flutter_pdf_library/presentation/screens/admin_login_ui/admin_login_screen.dart';
 import 'package:flutter_pdf_library/presentation/screens/display_books_ui/display_books_screen.dart';
 import 'package:flutter_pdf_library/presentation/ui_component/app_colors.dart';
 import 'package:flutter_pdf_library/presentation/ui_component/app_style.dart';
 import 'package:flutter_pdf_library/test/test_homepage.dart';
+import 'package:http_parser/http_parser.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:mime/mime.dart';
 
 class MyHomePage extends StatefulWidget {
   @override
@@ -33,43 +33,85 @@ class _MyHomePageState extends State<MyHomePage> {
   String fileText = "";
   bool _addBookInProgress = false;
 
-  Future<void> addBooksToServer() async {
-    _addBookInProgress = true;
-    setState(() {});
 
-    final Map<String, dynamic> requestBody = {
-      "name": nameController.text,
-      "author_id": int.parse(authorIdController.text),
-      "no_of_pages": int.parse(noOfPagesController.text),
-      "publisher_id": int.parse(publisherIdController.text),
-      "category_id": int.parse(categoryIdController.text),
-      "publish_year": int.parse(publishYearController.text),
-      "image": imageFile,
-      "pdf": pdf,
-    };
+  Future<void> uploadBookData() async {
+    // Replace with your server's URL
+    final String apiUrl = 'http://20.239.87.34:8080/books';
 
-    final NetworkResponse response =
-        await NetworkCaller().postRequest(Urls.addBooks, requestBody);
-    _addBookInProgress = false;
+    // Replace these with your actual controllers for input data
+    String name = nameController.text;
+    int authorId = int.parse(authorIdController.text);
+    int noOfPages = int.parse(noOfPagesController.text);
+    int publisherId = int.parse(publisherIdController.text);
+    int categoryId = int.parse(categoryIdController.text);
+    int publishYear = int.parse(publishYearController.text);
 
-    if (mounted) {
-      setState(() {});
+    // Ensure that both imageFile and pdf are not null
+    if (imageFile == null || pdf == null) {
+      print('Image and PDF must be selected.');
+      return;
     }
 
-    if (response.isSuccess) {
-      if (mounted) {
-        print("Upload Successful");
-        ScaffoldMessenger.of(context)
-            .showSnackBar(const SnackBar(content: Text('Upload Successful')));
+    // Create a multipart request
+    final request = http.MultipartRequest('POST', Uri.parse(apiUrl));
+
+    // Add form fields
+    request.fields['name'] = name;
+    request.fields['author_id'] = authorId.toString();
+    request.fields['no_of_pages'] = noOfPages.toString();
+    request.fields['publisher_id'] = publisherId.toString();
+    request.fields['category_id'] = categoryId.toString();
+    request.fields['publish_year'] = publishYear.toString();
+
+    // Add the image file
+    List<int> imageBytes = await imageFile!.readAsBytes();
+    String imageMimeType = lookupMimeType(imageFile!.path)!;
+    request.files.add(http.MultipartFile(
+      'image',
+      http.ByteStream.fromBytes(imageBytes),
+      imageBytes.length,
+      filename: 'image.png', // Change the filename if needed
+      contentType: MediaType.parse(imageMimeType),
+    ));
+
+    // Add the PDF file
+    List<int> pdfBytes = await pdf!.readAsBytes();
+    String pdfMimeType = lookupMimeType(pdf!.path)!;
+    request.files.add(http.MultipartFile(
+      'pdf',
+      http.ByteStream.fromBytes(pdfBytes),
+      pdfBytes.length,
+      filename: 'book.pdf', // Change the filename if needed
+      contentType: MediaType.parse(pdfMimeType),
+    ));
+
+    // Set authorization header
+    request.headers['Authorization'] =
+    'Bearer ${AuthUtility.userInfo.accessToken.toString()}';
+
+    // Send the request
+    try {
+      final response = await request.send();
+      if (response.statusCode == 200) {
+        // Request was successful
+        final responseString = await response.stream.bytesToString();
+        final responseData = json.decode(responseString);
+        print('Request success with status ${response.statusCode}');
+        // Handle the response data
+      } else {
+        // Request failed
+        print('Request failed with status ${response.statusCode}');
       }
-    } else {
-      if (mounted) {
-        print("Upload Failed");
-        ScaffoldMessenger.of(context)
-            .showSnackBar(const SnackBar(content: Text('Upload Failed')));
-      }
+    } catch (e) {
+      print('Error sending request: $e');
     }
   }
+
+
+
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -400,7 +442,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         replacement:
                             const Center(child: CircularProgressIndicator()),
                         child: ElevatedButton(
-                          onPressed: addBooksToServer,
+                          onPressed: uploadBookData,
                           style: ElevatedButton.styleFrom(
                             backgroundColor: AppColors.mainBlueColor,
                             shape: RoundedRectangleBorder(
