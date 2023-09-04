@@ -61,7 +61,7 @@ class _DisplayBooksScreenState extends State<DisplayBooksScreen> {
               onPressed: (){
                 getInProgressTasks();
               } ,
-              child: Text(AuthUtility.bookListInfo.pageNo.toString() ?? ''),
+              child: Text(AuthUtility.bookListInfo.rows.toString() ?? ''),
             ),
           ),
         ],

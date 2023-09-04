@@ -29,11 +29,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   XFile? imageFile;
   ImagePicker picker = ImagePicker();
-
   File? pdf;
-
   String fileText = "";
-
   bool _addBookInProgress = false;
 
   Future<void> addBooksToServer() async {
@@ -370,24 +367,89 @@ class _MyHomePageState extends State<MyHomePage> {
                     const SizedBox(
                       height: 15,
                     ),
-                    ElevatedButton(
-                      onPressed: addBooksToServer,
-                      child: const Text('Send Data to Server'),
+
+                    SizedBox(
+                      width: double.infinity,
+                      height: 45,
+                      child: Visibility(
+                        visible: !_addBookInProgress, // Change this line
+                        replacement: const Center(child: CircularProgressIndicator()),
+                        child: ElevatedButton(
+                          onPressed: addBooksToServer,
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: AppColors.mainBlueColor,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(16.0),
+                            ),
+                          ),
+                          child: Text(
+                            'Add Data',
+                            style: ralewayStyle.copyWith(
+                              fontWeight: FontWeight.w700,
+                              color: AppColors.whiteColor,
+                              fontSize: 16.0,
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
+
                     const SizedBox(height: 20.0),
-                    ElevatedButton(
-                      onPressed: logOut,
-                      child: const Text('Log-Out'),
+                    SizedBox(
+                      width: double.infinity,
+                      height: 45,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          print(
+                              "AccessToken: ${AuthUtility.userInfo.accessToken.toString()}");
+                          logOut();
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: AppColors.mainBlueColor,
+                          // Change the button color here
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16.0),
+                          ),
+                        ),
+                        child: Text(
+                          'Sign Out',
+                          style: ralewayStyle.copyWith(
+                            fontWeight: FontWeight.w700,
+                            color: AppColors.whiteColor,
+                            fontSize: 16.0,
+                          ),
+                        ),
+                      ),
                     ),
+
+
                     const SizedBox(height: 20.0),
-                    ElevatedButton(
-                      onPressed: (){
-                        Navigator.push(
+
+                    SizedBox(
+                      width: double.infinity,
+                      height: 45,
+                      child: ElevatedButton(
+                        onPressed: (){
+                          Navigator.push(
                             context,
                             MaterialPageRoute(builder: (context) =>  const DisplayBooksScreen()),
-                                );
-                      },
-                      child: const Text('View Book List'),
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: AppColors.mainBlueColor,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16.0),
+                          ),
+                        ),
+                        child: Text(
+                          'View Book List',
+                          style: ralewayStyle.copyWith(
+                            fontWeight: FontWeight.w700,
+                            color: AppColors.whiteColor,
+                            fontSize: 16.0,
+                          ),
+                        ),
+                      ),
                     ),
                     const SizedBox(height: 20.0),
                     ElevatedButton(
