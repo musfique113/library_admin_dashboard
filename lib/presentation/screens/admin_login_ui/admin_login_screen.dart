@@ -5,10 +5,10 @@ import 'package:flutter_pdf_library/data/models/network_response.dart';
 import 'package:flutter_pdf_library/data/services/network_caller.dart';
 import 'package:flutter_pdf_library/data/utils/urls.dart';
 import 'package:flutter_pdf_library/presentation/custom_widgets/responsive_widgets.dart';
+import 'package:flutter_pdf_library/presentation/screens/add_books_ui/add_book_screen.dart';
 import 'package:flutter_pdf_library/presentation/ui_component/app_colors.dart';
 import 'package:flutter_pdf_library/presentation/ui_component/app_icons.dart';
 import 'package:flutter_pdf_library/presentation/ui_component/app_style.dart';
-import 'package:flutter_pdf_library/presentation/screens/add_books_ui/add_book_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -80,7 +80,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       color: AppColors.mainBlueColor,
                       child: Center(
                         child: Text(
-                          'AdminExpress',
+                          'PDF Library',
                           style: ralewayStyle.copyWith(
                             fontSize: 48.0,
                             color: AppColors.whiteColor,
@@ -136,18 +136,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                       SizedBox(height: height * 0.064),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 16.0),
-                        child: Text(
-                          'Email',
-                          style: ralewayStyle.copyWith(
-                            fontSize: 12.0,
-                            color: AppColors.blueDarkColor,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                      ),
                       const SizedBox(height: 6.0),
+                      // Replace the "Email" TextFormField with a custom email input field
                       Container(
                         height: 50.0,
                         width: width,
@@ -155,126 +145,133 @@ class _LoginScreenState extends State<LoginScreen> {
                           borderRadius: BorderRadius.circular(16.0),
                           color: AppColors.whiteColor,
                         ),
-                        child: TextFormField(
-                          controller: _emailTEController,
-                          style: ralewayStyle.copyWith(
-                            fontWeight: FontWeight.w400,
-                            color: AppColors.blueDarkColor,
-                            fontSize: 12.0,
-                          ),
-                          decoration: InputDecoration(
-                            border: InputBorder.none,
-                            prefixIcon: IconButton(
-                              onPressed: () {},
-                              icon: Image.asset(AppIcons.emailIcon),
+                        child: Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 16.0),
+                              child: Image.asset(AppIcons.emailIcon),
                             ),
-                            contentPadding: const EdgeInsets.only(top: 16.0),
-                            hintText: 'Enter Email',
-                            hintStyle: ralewayStyle.copyWith(
-                              fontWeight: FontWeight.w400,
-                              color: AppColors.blueDarkColor.withOpacity(0.5),
-                              fontSize: 12.0,
+                            SizedBox(width: 12.0), // Adjust spacing as needed
+                            Expanded(
+                              child: TextField(
+                                controller: _emailTEController,
+                                style: ralewayStyle.copyWith(
+                                  fontWeight: FontWeight.w400,
+                                  color: AppColors.blueDarkColor,
+                                  fontSize: 12.0,
+                                ),
+                                decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                  hintText: 'Enter Email',
+                                  hintStyle: ralewayStyle.copyWith(
+                                    fontWeight: FontWeight.w400,
+                                    color: AppColors.blueDarkColor
+                                        .withOpacity(0.5),
+                                    fontSize: 12.0,
+                                  ),
+                                ),
+                              ),
                             ),
-                          ),
+                          ],
                         ),
                       ),
-                      SizedBox(height: height * 0.014),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 16.0),
-                        child: Text(
-                          'Password',
-                          style: ralewayStyle.copyWith(
-                            fontSize: 12.0,
-                            color: AppColors.blueDarkColor,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 6.0),
-                      Container(
-                        height: 50.0,
-                        width: width,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(16.0),
-                          color: AppColors.whiteColor,
-                        ),
-                        child: TextFormField(
-                          controller: _passwordTEController,
-                          keyboardType: TextInputType.visiblePassword,
-                          obscureText: !_passwordVisible,
-                          style: ralewayStyle.copyWith(
-                            fontWeight: FontWeight.w400,
-                            color: AppColors.blueDarkColor,
-                            fontSize: 12.0,
-                          ),
-                          decoration: InputDecoration(
-                            border: InputBorder.none,
-                            suffixIcon: IconButton(
-                              icon: _passwordVisible
-                                  ? const Icon(Icons.visibility)
-                                  : const Icon(Icons.visibility_off),
-                              onPressed: () {
-                                setState(() {
-                                  _passwordVisible = !_passwordVisible;
-                                });
-                              },
-                            ),
-                            prefixIcon: IconButton(
-                              onPressed: () {},
-                              icon: Image.asset(AppIcons.lockIcon),
-                            ),
-                            contentPadding: const EdgeInsets.only(top: 16.0),
-                            hintText: 'Enter Password',
-                            hintStyle: ralewayStyle.copyWith(
-                              fontWeight: FontWeight.w400,
-                              color: AppColors.blueDarkColor.withOpacity(0.5),
-                              fontSize: 12.0,
-                            ),
-                          ),
-                        ),
-                      ),
+
                       SizedBox(height: height * 0.03),
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: TextButton(
-                          onPressed: () {},
-                          child: Text(
-                            'Forgot Password?',
-                            style: ralewayStyle.copyWith(
-                              fontSize: 12.0,
-                              color: AppColors.mainBlueColor,
-                              fontWeight: FontWeight.w600,
+                      Container(
+                        height: 50.0,
+                        width: width,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(16.0),
+                          color: AppColors.whiteColor,
+                        ),
+                        child: Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 16.0),
+                              child: Image.asset(AppIcons.lockIcon),
                             ),
-                          ),
+                            SizedBox(width: 12.0), // Adjust spacing as needed
+                            Expanded(
+                              child: TextField(
+                                controller: _passwordTEController,
+                                keyboardType: TextInputType.visiblePassword,
+                                obscureText: !_passwordVisible,
+                                style: ralewayStyle.copyWith(
+                                  fontWeight: FontWeight.w400,
+                                  color: AppColors.blueDarkColor,
+                                  fontSize: 12.0,
+                                ),
+                                decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                  hintText: 'Enter Password',
+                                  hintStyle: ralewayStyle.copyWith(
+                                    fontWeight: FontWeight.w400,
+                                    color: AppColors.blueDarkColor
+                                        .withOpacity(0.5),
+                                    fontSize: 12.0,
+                                  ),
+                                  suffixIcon: IconButton(
+                                    icon: _passwordVisible
+                                        ? const Icon(Icons.visibility)
+                                        : const Icon(Icons.visibility_off),
+                                    onPressed: () {
+                                      setState(() {
+                                        _passwordVisible = !_passwordVisible;
+                                      });
+                                    },
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                      SizedBox(height: height * 0.05),
-                      Material(
-                        color: Colors.transparent,
+
+                      SizedBox(height: height * 0.03),
+                      // Align(
+                      //   alignment: Alignment.centerRight,
+                      //   child: TextButton(
+                      //     onPressed: () {},
+                      //     child: Text(
+                      //       'Forgot Password?',
+                      //       style: ralewayStyle.copyWith(
+                      //         fontSize: 12.0,
+                      //         color: AppColors.mainBlueColor,
+                      //         fontWeight: FontWeight.w600,
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
+                      // SizedBox(height: height * 0.05),
+
+                      SizedBox(
+                        width: double.infinity,
+                        height: 45,
                         child: Visibility(
                           visible: _signInProgress == false,
                           replacement:
-                              Center(child: CircularProgressIndicator()),
-                          child: InkWell(
-                            onTap: () {
+                              const Center(child: CircularProgressIndicator()),
+                          child: ElevatedButton(
+                            onPressed: () {
+                              print(
+                                  "AccessToken: ${AuthUtility.userInfo.accessToken.toString()}");
                               logIn();
-                              print("AccessToken: ${AuthUtility.userInfo.accessToken.toString()}");
                             },
-                            borderRadius: BorderRadius.circular(16.0),
-                            child: Ink(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 70.0, vertical: 18.0),
-                              decoration: BoxDecoration(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: AppColors.mainBlueColor,
+                              // Change the button color here
+                              shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(16.0),
-                                color: AppColors.mainBlueColor,
                               ),
-                              child: Text(
-                                'Sign In',
-                                style: ralewayStyle.copyWith(
-                                  fontWeight: FontWeight.w700,
-                                  color: AppColors.whiteColor,
-                                  fontSize: 16.0,
-                                ),
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 70.0, vertical: 18.0),
+                            ),
+                            child: Text(
+                              'Sign In',
+                              style: ralewayStyle.copyWith(
+                                fontWeight: FontWeight.w700,
+                                color: AppColors.whiteColor,
+                                fontSize: 16.0,
                               ),
                             ),
                           ),
