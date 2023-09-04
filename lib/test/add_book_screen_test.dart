@@ -1,17 +1,16 @@
 import 'dart:convert';
 import 'dart:io';
-
+import 'package:flutter_pdf_library/data/utils/urls.dart';
+import 'package:http/http.dart' as http;
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_pdf_library/data/models/auth_utility.dart';
-import 'package:flutter_pdf_library/data/utils/urls.dart';
 import 'package:flutter_pdf_library/presentation/custom_widgets/responsive_widgets.dart';
 import 'package:flutter_pdf_library/presentation/screens/admin_login_ui/admin_login_screen.dart';
 import 'package:flutter_pdf_library/presentation/screens/display_books_ui/display_books_screen.dart';
 import 'package:flutter_pdf_library/presentation/ui_component/app_colors.dart';
 import 'package:flutter_pdf_library/presentation/ui_component/app_style.dart';
 import 'package:flutter_pdf_library/test/test_homepage.dart';
-import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mime/mime.dart';
@@ -33,15 +32,14 @@ class _MyHomePageState extends State<MyHomePage> {
   ImagePicker picker = ImagePicker();
   File? pdf;
   String fileText = "";
-
   bool _addBookInProgress = false;
 
-  Future<void> uploadBookData() async {
-    setState(() {
-      _addBookInProgress = true;
-    });
 
+  Future<void> uploadBookData() async {
+    // Replace with your server's URL
     final String apiUrl = Urls.addBooks;
+
+    // Replace these with your actual controllers for input data
     String name = nameController.text;
     int authorId = int.parse(authorIdController.text);
     int noOfPages = int.parse(noOfPagesController.text);
@@ -49,19 +47,14 @@ class _MyHomePageState extends State<MyHomePage> {
     int categoryId = int.parse(categoryIdController.text);
     int publishYear = int.parse(publishYearController.text);
 
+    // Ensure that both imageFile and pdf are not null
     if (imageFile == null || pdf == null) {
       print('Image and PDF must be selected.');
-      setState(() {
-        _addBookInProgress = false; // Stop the progress indicator
-      });
       return;
     }
 
     // Create a multipart request
     final request = http.MultipartRequest('POST', Uri.parse(apiUrl));
-    // Set authorization header
-    request.headers['Authorization'] =
-    'Bearer ${AuthUtility.userInfo.accessToken.toString()}';
 
     // Add form fields
     request.fields['name'] = name;
@@ -93,30 +86,34 @@ class _MyHomePageState extends State<MyHomePage> {
       contentType: MediaType.parse(pdfMimeType),
     ));
 
+    // Set authorization header
+    request.headers['Authorization'] =
+    'Bearer ${AuthUtility.userInfo.accessToken.toString()}';
+
     // Send the request
     try {
       final response = await request.send();
-      if (response.statusCode == 200 || response.statusCode == 201) {
+      if (response.statusCode == 200) {
         // Request was successful
         final responseString = await response.stream.bytesToString();
         final responseData = json.decode(responseString);
         print('Request success with status ${response.statusCode}');
-        ScaffoldMessenger.of(context)
-            .showSnackBar(const SnackBar(content: Text('Data added success')));
-      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Data added success')));
+        // Handle the response dat3
+      } else if(response.statusCode == 201) {
+        print('Request success with status ${response.statusCode}');
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Data added success')));
+      }else{
         print('Request failed with status ${response.statusCode}');
-        ScaffoldMessenger.of(context)
-            .showSnackBar(const SnackBar(content: Text('Data added failed')));
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Data added failed')));
       }
     } catch (e) {
       print('Error sending request: $e');
-    } finally {
-      setState(() {
-        _addBookInProgress = false; // Stop the progress indicator
-      });
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -446,24 +443,20 @@ class _MyHomePageState extends State<MyHomePage> {
                         visible: !_addBookInProgress, // Change this line
                         replacement:
                             const Center(child: CircularProgressIndicator()),
-                        child: Visibility(
-                          visible: _addBookInProgress == false,
-                          replacement: const Center(child: CircularProgressIndicator(),),
-                          child: ElevatedButton(
-                            onPressed: uploadBookData,
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: AppColors.mainBlueColor,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(16.0),
-                              ),
+                        child: ElevatedButton(
+                          onPressed: uploadBookData,
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: AppColors.mainBlueColor,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(16.0),
                             ),
-                            child: Text(
-                              'Add Data',
-                              style: ralewayStyle.copyWith(
-                                fontWeight: FontWeight.w700,
-                                color: AppColors.whiteColor,
-                                fontSize: 16.0,
-                              ),
+                          ),
+                          child: Text(
+                            'Add Data',
+                            style: ralewayStyle.copyWith(
+                              fontWeight: FontWeight.w700,
+                              color: AppColors.whiteColor,
+                              fontSize: 16.0,
                             ),
                           ),
                         ),
