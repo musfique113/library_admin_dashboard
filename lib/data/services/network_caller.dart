@@ -13,7 +13,8 @@ class NetworkCaller {
     try {
       Response response = await get(Uri.parse(url),
           headers: {
-        'access_token': AuthUtility.userInfo.accessToken.toString()
+        'access_token': AuthUtility.userInfo.accessToken.toString(),
+            HttpHeaders.authorizationHeader: 'Bearer ${AuthUtility.userInfo.accessToken.toString()}'
       });
       log(response.statusCode.toString());
       log(response.body);

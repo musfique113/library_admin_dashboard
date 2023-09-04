@@ -17,6 +17,12 @@ class LibraryDashboard extends StatelessWidget {
       key: globalKey,
       title: 'Flutter Demo',
       theme: ThemeData(
+        inputDecorationTheme: const InputDecorationTheme(
+          filled: true,
+          fillColor: Colors.white,
+          contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+          border: OutlineInputBorder(borderSide: BorderSide.none),
+        ),
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
         useMaterial3: true,
       ),

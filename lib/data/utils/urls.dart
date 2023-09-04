@@ -5,4 +5,5 @@ class Urls {
   static String registration = '$_baseUrl/signup';
   static String login = '$_baseUrl/login';
   static String addBooks = '$_baseUrl/books';
+  static String displayBooksList = '$_baseUrl/books?limit=10&page=1';
 }

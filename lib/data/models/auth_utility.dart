@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter_pdf_library/data/models/display_books_model.dart';
 import 'package:flutter_pdf_library/data/models/login_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -7,6 +8,7 @@ class AuthUtility {
   AuthUtility._();
 
   static LoginModel userInfo = LoginModel();
+  static BookListModel bookListInfo = BookListModel();
 
   static Future<void> saveUserInfo(LoginModel model) async {
     SharedPreferences _sharedPrefs = await SharedPreferences.getInstance();
@@ -32,5 +34,11 @@ class AuthUtility {
       userInfo = await getUserInfo();
     }
     return isLogin;
+  }
+
+  static Future<void> getBooksList(BookListModel bookListModel) async {
+    SharedPreferences _sharedPrefs = await SharedPreferences.getInstance();
+    await _sharedPrefs.setString('user-data', jsonEncode(bookListModel.toJson()));
+    bookListInfo = BookListModel();
   }
 }

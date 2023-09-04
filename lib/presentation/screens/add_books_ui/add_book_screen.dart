@@ -8,8 +8,10 @@ import 'package:flutter_pdf_library/data/services/network_caller.dart';
 import 'package:flutter_pdf_library/data/utils/urls.dart';
 import 'package:flutter_pdf_library/presentation/custom_widgets/responsive_widgets.dart';
 import 'package:flutter_pdf_library/presentation/screens/admin_login_ui/admin_login_screen.dart';
+import 'package:flutter_pdf_library/presentation/screens/display_books_ui/display_books_screen.dart';
 import 'package:flutter_pdf_library/presentation/ui_component/app_colors.dart';
 import 'package:flutter_pdf_library/presentation/ui_component/app_style.dart';
+import 'package:flutter_pdf_library/test/test_homepage.dart';
 import 'package:image_picker/image_picker.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -18,7 +20,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  //final TextEditingController idController = TextEditingController();
   final TextEditingController nameController = TextEditingController();
   final TextEditingController authorIdController = TextEditingController();
   final TextEditingController noOfPagesController = TextEditingController();
@@ -31,7 +32,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   File? pdf;
 
-  //FilePicker _filePicker = FilePicker();
   String fileText = "";
 
   bool _addBookInProgress = false;
@@ -41,7 +41,6 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {});
 
     final Map<String, dynamic> requestBody = {
-      //"id": int.parse(idController.text),
       "name": nameController.text,
       "author_id": int.parse(authorIdController.text),
       "no_of_pages": int.parse(noOfPagesController.text),
@@ -53,7 +52,7 @@ class _MyHomePageState extends State<MyHomePage> {
     };
 
     final NetworkResponse response =
-        await NetworkCaller().postRequest(Urls.addBooks, requestBody);
+    await NetworkCaller().postRequest(Urls.addBooks, requestBody);
     _addBookInProgress = false;
 
     if (mounted) {
@@ -76,13 +75,12 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   @override
-
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
-        leading: Icon(Icons.account_circle),
+        leading: const Icon(Icons.account_circle),
         title: Text(
           '${AuthUtility.userInfo.user?.name ?? ''}',
           style: ralewayStyle.copyWith(
@@ -103,67 +101,216 @@ class _MyHomePageState extends State<MyHomePage> {
             ResponsiveLayout.isPhone(context)
                 ? const SizedBox()
                 : Container(
-                  height: height,
-                  width: 500,
-                  color: AppColors.mainBlueColor,
-                  child: Center(
-                    child: Text(
-                      'PDF Library',
-                      style: ralewayStyle.copyWith(
-                        fontSize: 48.0,
-                        color: AppColors.whiteColor,
-                        fontWeight: FontWeight.w800,
-                      ),
-                    ),
+              height: height,
+              width: 500,
+              color: AppColors.mainBlueColor,
+              child: Center(
+                child: Text(
+                  'PDF Library',
+                  style: ralewayStyle.copyWith(
+                    fontSize: 48.0,
+                    color: AppColors.whiteColor,
+                    fontWeight: FontWeight.w800,
                   ),
                 ),
+              ),
+            ),
             Expanded(
               child: SingleChildScrollView(
-                padding: EdgeInsets.all(16.0),
+                padding: const EdgeInsets.all(16.0),
                 child: Column(
                   children: <Widget>[
-                    // TextField(
-                    //   controller: idController,
-                    //   decoration: InputDecoration(labelText: 'ID'),
-                    // ),
-
-                    TextField(
-                      controller: nameController,
-                      decoration: InputDecoration(labelText: 'Name'),
+                    // Usage of customTextFormField:
+                    Row(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Container(
+                          width: 90.0,
+                          height: 48.0,
+                          decoration: const BoxDecoration(
+                            color: AppColors.mainBlueColor,
+                          ),
+                          child: const Center(child: Text("Name",style: TextStyle(color: Colors.white))),
+                        ),
+                        Expanded(
+                          child: Container(
+                            child: Padding(
+                              padding: const EdgeInsetsDirectional.all(1),
+                              child: TextFormField(
+                                autofocus: true,
+                                controller: nameController,
+                                decoration: const InputDecoration(
+                                  border: InputBorder.none,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                    TextField(
-                      controller: authorIdController,
-                      decoration: InputDecoration(labelText: 'Author ID'),
+                    const SizedBox(
+                      height: 5,
                     ),
-                    TextField(
-                      controller: noOfPagesController,
-                      decoration: InputDecoration(labelText: 'Number of Pages'),
+                    Row(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Container(
+                          width: 90.0,
+                          height: 48.0,
+                          decoration: const BoxDecoration(
+                            color: AppColors.mainBlueColor,
+                          ),
+                          child: const Center(child: Text("Author",style: TextStyle(color: Colors.white))),
+                        ),
+                        Container(
+                          child: Expanded(
+                            child: Padding(
+                              padding: const EdgeInsetsDirectional.all(1),
+                              child: TextFormField(
+                                autofocus: true,
+                                controller: authorIdController,
+                                obscureText: false,
+                                decoration: const InputDecoration(
+                                  border: InputBorder.none,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                    TextField(
-                      controller: publisherIdController,
-                      decoration: InputDecoration(labelText: 'Publisher ID'),
+                    const SizedBox(height: 5,),
+                    Row(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Container(
+                          width: 90.0,
+                          height: 48.0,
+                          decoration: const BoxDecoration(
+                            color: AppColors.mainBlueColor,
+                          ),
+                          child: const Center(child: Text("No of Page",style: TextStyle(color: Colors.white))),
+                        ),
+                        Container(
+                          child: Expanded(
+                            child: Padding(
+                              padding: const EdgeInsetsDirectional.all(1),
+                              child: TextFormField(
+                                autofocus: true,
+                                controller: noOfPagesController,
+                                obscureText: false,
+                                decoration: const InputDecoration(
+                                  border: InputBorder.none,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                    TextField(
-                      controller: categoryIdController,
-                      decoration: InputDecoration(labelText: 'Category ID'),
+                    const SizedBox(height: 5,),
+                    Row(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Container(
+                          width: 90.0,
+                          height: 48.0,
+                          decoration: const BoxDecoration(
+                            color: AppColors.mainBlueColor,
+                          ),
+                          child: const Center(child: Text("Publisher ID",style: TextStyle(color: Colors.white))),
+                        ),
+                        Container(
+                          child: Expanded(
+                            child: Padding(
+                              padding: const EdgeInsetsDirectional.all(1),
+                              child: TextFormField(
+                                autofocus: true,
+                                controller: publisherIdController,
+                                obscureText: false,
+                                decoration: const InputDecoration(
+                                  border: InputBorder.none,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                    TextField(
-                      controller: publishYearController,
-                      decoration: InputDecoration(labelText: 'Publish Year'),
+                    const SizedBox(height: 5,),
+                    Row(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Container(
+                          width: 90.0,
+                          height: 48.0,
+                          decoration: const BoxDecoration(
+                            color: AppColors.mainBlueColor,
+                          ),
+                          child: const Center(child: Text("Category ID",style: TextStyle(color: Colors.white))),
+                        ),
+                        Container(
+                          child: Expanded(
+                            child: Padding(
+                              padding: const EdgeInsetsDirectional.all(1),
+                              child: TextFormField(
+                                autofocus: true,
+                                controller: categoryIdController,
+                                obscureText: false,
+                                decoration: const InputDecoration(
+                                  border: InputBorder.none,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                    SizedBox(height: 20.0),
+                    const SizedBox(height: 5,),
+                    Row(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Container(
+                          width: 90.0,
+                          height: 48.0,
+                          decoration: const BoxDecoration(
+                            color: AppColors.mainBlueColor,
+                          ),
+                          child: const Center(child: Text("Year",style: TextStyle(color: Colors.white))),
+                        ),
+                        Container(
+                          child: Expanded(
+                            child: Padding(
+                              padding: const EdgeInsetsDirectional.all(1),
+                              child: TextFormField(
+                                autofocus: true,
+                                controller: publishYearController,
+                                obscureText: false,
+                                decoration: const InputDecoration(
+                                  border: InputBorder.none,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 12,),
                     InkWell(
                       onTap: () {
                         selectImage();
                       },
                       child: Container(
                         width: double.infinity,
-                        decoration: const BoxDecoration(color: Colors.white),
+                        decoration: const BoxDecoration(
+                          color: Colors.white,
+                        ),
                         child: Row(
                           children: [
                             Container(
                               padding: const EdgeInsets.all(14),
-                              color: Colors.green,
+                              width: 90,
+                              color: AppColors.mainBlueColor,
                               child: const Text(
                                 'Photos',
                                 style: TextStyle(color: Colors.white),
@@ -184,21 +331,22 @@ class _MyHomePageState extends State<MyHomePage> {
                         ),
                       ),
                     ),
-                    SizedBox(
-                      height: 10,
-                    ),
+                    const SizedBox(height: 15,),
                     InkWell(
                       onTap: () {
                         selectPDF();
                       },
                       child: Container(
                         width: double.infinity,
-                        decoration: const BoxDecoration(color: Colors.white),
+                        decoration: const BoxDecoration(
+                          color: Colors.white,
+                        ),
                         child: Row(
                           children: [
                             Container(
                               padding: const EdgeInsets.all(14),
-                              color: Colors.green,
+                              width: 90,
+                              color: AppColors.mainBlueColor,
                               child: const Text(
                                 'PDF',
                                 style: TextStyle(color: Colors.white),
@@ -208,7 +356,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               width: 16,
                             ),
                             Visibility(
-                              visible: imageFile != null,
+                              visible: pdf != null,
                               child: Text(
                                 fileText,
                                 overflow: TextOverflow.fade,
@@ -219,17 +367,37 @@ class _MyHomePageState extends State<MyHomePage> {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 15,
                     ),
                     ElevatedButton(
                       onPressed: addBooksToServer,
-                      child: Text('Send Data to Server'),
+                      child: const Text('Send Data to Server'),
                     ),
-                    SizedBox(height: 20.0),
+                    const SizedBox(height: 20.0),
                     ElevatedButton(
                       onPressed: logOut,
-                      child: Text('Log-Out'),
+                      child: const Text('Log-Out'),
+                    ),
+                    const SizedBox(height: 20.0),
+                    ElevatedButton(
+                      onPressed: (){
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) =>  const DisplayBooksScreen()),
+                                );
+                      },
+                      child: const Text('View Book List'),
+                    ),
+                    const SizedBox(height: 20.0),
+                    ElevatedButton(
+                      onPressed: (){
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) =>  const HomePageTest()),
+                                );
+                      },
+                      child: const Text('thes screen'),
                     ),
                   ],
                 ),
@@ -240,7 +408,6 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
   }
-
 
   void selectImage() {
     picker.pickImage(source: ImageSource.gallery).then((xFile) {
@@ -260,10 +427,10 @@ class _MyHomePageState extends State<MyHomePage> {
       List<int> fileBytes = result.files.single.bytes ?? [];
       String fileName = result.files.single.name;
 
-      File file = File(fileName);
-      await file.writeAsBytes(fileBytes);
+      pdf = File(fileName);
+      await pdf?.writeAsBytes(fileBytes);
 
-      String filePath = file.path;
+      String filePath = pdf!.path;
       print(fileName);
       print(filePath);
       setState(() {
@@ -271,10 +438,9 @@ class _MyHomePageState extends State<MyHomePage> {
       });
     } else {
       // User canceled the picker
-      print("Cancled file pick");
+      print("Canceled file pick");
     }
   }
-
 
   void logOut() async {
     await AuthUtility.clearUserInfo();
@@ -282,7 +448,7 @@ class _MyHomePageState extends State<MyHomePage> {
       Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(builder: (context) => const LoginScreen()),
-          (route) => false);
+              (route) => false);
     }
   }
 }

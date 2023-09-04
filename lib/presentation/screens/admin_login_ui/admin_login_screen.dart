@@ -35,7 +35,7 @@ class _LoginScreenState extends State<LoginScreen> {
     };
 
     final NetworkResponse response =
-        await NetworkCaller().postRequest(Urls.login, requestBody);
+    await NetworkCaller().postRequest(Urls.login, requestBody);
     _signInProgress = false;
     if (mounted) {
       setState(() {});
@@ -49,7 +49,7 @@ class _LoginScreenState extends State<LoginScreen> {
         Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(builder: (context) => MyHomePage()),
-            (route) => false);
+                (route) => false);
       }
     } else {
       if (mounted) {
@@ -75,21 +75,21 @@ class _LoginScreenState extends State<LoginScreen> {
             ResponsiveLayout.isPhone(context)
                 ? const SizedBox()
                 : Expanded(
-                    child: Container(
-                      height: height,
-                      color: AppColors.mainBlueColor,
-                      child: Center(
-                        child: Text(
-                          'PDF Library',
-                          style: ralewayStyle.copyWith(
-                            fontSize: 48.0,
-                            color: AppColors.whiteColor,
-                            fontWeight: FontWeight.w800,
-                          ),
-                        ),
-                      ),
+              child: Container(
+                height: height,
+                color: AppColors.mainBlueColor,
+                child: Center(
+                  child: Text(
+                    'PDF Library',
+                    style: ralewayStyle.copyWith(
+                      fontSize: 48.0,
+                      color: AppColors.whiteColor,
+                      fontWeight: FontWeight.w800,
                     ),
                   ),
+                ),
+              ),
+            ),
             Expanded(
               child: Container(
                 height: height,
@@ -136,113 +136,76 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                       SizedBox(height: height * 0.064),
-                      const SizedBox(height: 6.0),
-                      // Replace the "Email" TextFormField with a custom email input field
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
                       Container(
-                        height: 50.0,
-                        width: width,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(16.0),
-                          color: AppColors.whiteColor,
+                        width: 90.0,
+                        height: 48.0,
+                        decoration: const BoxDecoration(
+                          color: AppColors.mainBlueColor,
                         ),
-                        child: Row(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(left: 16.0),
-                              child: Image.asset(AppIcons.emailIcon),
+                        child: const Center(child: Text("Email",style: TextStyle(color: Colors.white))),
+                      ),
+                      Expanded(
+                        child: Container(
+                          child: Padding(
+                            padding: const EdgeInsetsDirectional.all(1),
+                            child: TextFormField(
+                              autofocus: true,
+                              controller: _emailTEController,
+                              obscureText: false,
+                              decoration: const InputDecoration(
+                                border: InputBorder.none,
+                              ),
                             ),
-                            SizedBox(width: 12.0), // Adjust spacing as needed
-                            Expanded(
-                              child: TextField(
-                                controller: _emailTEController,
-                                style: ralewayStyle.copyWith(
-                                  fontWeight: FontWeight.w400,
-                                  color: AppColors.blueDarkColor,
-                                  fontSize: 12.0,
-                                ),
-                                decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  hintText: 'Enter Email',
-                                  hintStyle: ralewayStyle.copyWith(
-                                    fontWeight: FontWeight.w400,
-                                    color: AppColors.blueDarkColor
-                                        .withOpacity(0.5),
-                                    fontSize: 12.0,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                      const SizedBox(height: 5,),
+                      Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Container(
+                            width: 90.0,
+                            height: 48.0,
+                            decoration: const BoxDecoration(
+                              color: AppColors.mainBlueColor,
+                            ),
+                            child: const Center(child: Text("Password",style: TextStyle(color: Colors.white))),
+                          ),
+                          Expanded(
+                            child: Container(
+                              child: Padding(
+                                padding: const EdgeInsetsDirectional.all(1),
+                                child: TextFormField(
+                                  autofocus: true,
+                                  controller: _passwordTEController,
+                                  obscureText: !_passwordVisible,
+                                  decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    suffixIcon: IconButton(
+                                      icon: _passwordVisible
+                                          ? const Icon(Icons.visibility)
+                                          : const Icon(Icons.visibility_off),
+                                      onPressed: () {
+                                        setState(() {
+                                          _passwordVisible = !_passwordVisible;
+                                        });
+                                      },
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
 
-                      SizedBox(height: height * 0.03),
-                      Container(
-                        height: 50.0,
-                        width: width,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(16.0),
-                          color: AppColors.whiteColor,
-                        ),
-                        child: Row(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(left: 16.0),
-                              child: Image.asset(AppIcons.lockIcon),
-                            ),
-                            SizedBox(width: 12.0), // Adjust spacing as needed
-                            Expanded(
-                              child: TextField(
-                                controller: _passwordTEController,
-                                keyboardType: TextInputType.visiblePassword,
-                                obscureText: !_passwordVisible,
-                                style: ralewayStyle.copyWith(
-                                  fontWeight: FontWeight.w400,
-                                  color: AppColors.blueDarkColor,
-                                  fontSize: 12.0,
-                                ),
-                                decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  hintText: 'Enter Password',
-                                  hintStyle: ralewayStyle.copyWith(
-                                    fontWeight: FontWeight.w400,
-                                    color: AppColors.blueDarkColor
-                                        .withOpacity(0.5),
-                                    fontSize: 12.0,
-                                  ),
-                                  suffixIcon: IconButton(
-                                    icon: _passwordVisible
-                                        ? const Icon(Icons.visibility)
-                                        : const Icon(Icons.visibility_off),
-                                    onPressed: () {
-                                      setState(() {
-                                        _passwordVisible = !_passwordVisible;
-                                      });
-                                    },
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
 
-                      SizedBox(height: height * 0.03),
-                      // Align(
-                      //   alignment: Alignment.centerRight,
-                      //   child: TextButton(
-                      //     onPressed: () {},
-                      //     child: Text(
-                      //       'Forgot Password?',
-                      //       style: ralewayStyle.copyWith(
-                      //         fontSize: 12.0,
-                      //         color: AppColors.mainBlueColor,
-                      //         fontWeight: FontWeight.w600,
-                      //       ),
-                      //     ),
-                      //   ),
-                      // ),
-                      // SizedBox(height: height * 0.05),
+                      SizedBox(height: height * 0.01),
 
                       SizedBox(
                         width: double.infinity,
@@ -250,7 +213,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: Visibility(
                           visible: _signInProgress == false,
                           replacement:
-                              const Center(child: CircularProgressIndicator()),
+                          const Center(child: CircularProgressIndicator()),
                           child: ElevatedButton(
                             onPressed: () {
                               print(
@@ -263,8 +226,6 @@ class _LoginScreenState extends State<LoginScreen> {
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(16.0),
                               ),
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 70.0, vertical: 18.0),
                             ),
                             child: Text(
                               'Sign In',
