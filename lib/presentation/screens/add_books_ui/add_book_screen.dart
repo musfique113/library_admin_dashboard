@@ -44,12 +44,12 @@ class _MyHomePageState extends State<MyHomePage> {
       "publisher_id": int.parse(publisherIdController.text),
       "category_id": int.parse(categoryIdController.text),
       "publish_year": int.parse(publishYearController.text),
-      "image": "imageController.text",
-      "pdf": "pdfController.text",
+      "image": imageFile,
+      "pdf": pdf,
     };
 
     final NetworkResponse response =
-    await NetworkCaller().postRequest(Urls.addBooks, requestBody);
+        await NetworkCaller().postRequest(Urls.addBooks, requestBody);
     _addBookInProgress = false;
 
     if (mounted) {
@@ -98,20 +98,20 @@ class _MyHomePageState extends State<MyHomePage> {
             ResponsiveLayout.isPhone(context)
                 ? const SizedBox()
                 : Container(
-              height: height,
-              width: 500,
-              color: AppColors.mainBlueColor,
-              child: Center(
-                child: Text(
-                  'PDF Library',
-                  style: ralewayStyle.copyWith(
-                    fontSize: 48.0,
-                    color: AppColors.whiteColor,
-                    fontWeight: FontWeight.w800,
+                    height: height,
+                    width: 500,
+                    color: AppColors.mainBlueColor,
+                    child: Center(
+                      child: Text(
+                        'PDF Library',
+                        style: ralewayStyle.copyWith(
+                          fontSize: 48.0,
+                          color: AppColors.whiteColor,
+                          fontWeight: FontWeight.w800,
+                        ),
+                      ),
+                    ),
                   ),
-                ),
-              ),
-            ),
             Expanded(
               child: SingleChildScrollView(
                 padding: const EdgeInsets.all(16.0),
@@ -127,7 +127,9 @@ class _MyHomePageState extends State<MyHomePage> {
                           decoration: const BoxDecoration(
                             color: AppColors.mainBlueColor,
                           ),
-                          child: const Center(child: Text("Name",style: TextStyle(color: Colors.white))),
+                          child: const Center(
+                              child: Text("Name",
+                                  style: TextStyle(color: Colors.white))),
                         ),
                         Expanded(
                           child: Container(
@@ -157,7 +159,9 @@ class _MyHomePageState extends State<MyHomePage> {
                           decoration: const BoxDecoration(
                             color: AppColors.mainBlueColor,
                           ),
-                          child: const Center(child: Text("Author",style: TextStyle(color: Colors.white))),
+                          child: const Center(
+                              child: Text("Author",
+                                  style: TextStyle(color: Colors.white))),
                         ),
                         Container(
                           child: Expanded(
@@ -176,7 +180,9 @@ class _MyHomePageState extends State<MyHomePage> {
                         ),
                       ],
                     ),
-                    const SizedBox(height: 5,),
+                    const SizedBox(
+                      height: 5,
+                    ),
                     Row(
                       mainAxisSize: MainAxisSize.max,
                       children: [
@@ -186,7 +192,9 @@ class _MyHomePageState extends State<MyHomePage> {
                           decoration: const BoxDecoration(
                             color: AppColors.mainBlueColor,
                           ),
-                          child: const Center(child: Text("No of Page",style: TextStyle(color: Colors.white))),
+                          child: const Center(
+                              child: Text("No of Page",
+                                  style: TextStyle(color: Colors.white))),
                         ),
                         Container(
                           child: Expanded(
@@ -205,7 +213,9 @@ class _MyHomePageState extends State<MyHomePage> {
                         ),
                       ],
                     ),
-                    const SizedBox(height: 5,),
+                    const SizedBox(
+                      height: 5,
+                    ),
                     Row(
                       mainAxisSize: MainAxisSize.max,
                       children: [
@@ -215,7 +225,9 @@ class _MyHomePageState extends State<MyHomePage> {
                           decoration: const BoxDecoration(
                             color: AppColors.mainBlueColor,
                           ),
-                          child: const Center(child: Text("Publisher ID",style: TextStyle(color: Colors.white))),
+                          child: const Center(
+                              child: Text("Publisher ID",
+                                  style: TextStyle(color: Colors.white))),
                         ),
                         Container(
                           child: Expanded(
@@ -234,7 +246,9 @@ class _MyHomePageState extends State<MyHomePage> {
                         ),
                       ],
                     ),
-                    const SizedBox(height: 5,),
+                    const SizedBox(
+                      height: 5,
+                    ),
                     Row(
                       mainAxisSize: MainAxisSize.max,
                       children: [
@@ -244,7 +258,9 @@ class _MyHomePageState extends State<MyHomePage> {
                           decoration: const BoxDecoration(
                             color: AppColors.mainBlueColor,
                           ),
-                          child: const Center(child: Text("Category ID",style: TextStyle(color: Colors.white))),
+                          child: const Center(
+                              child: Text("Category ID",
+                                  style: TextStyle(color: Colors.white))),
                         ),
                         Container(
                           child: Expanded(
@@ -263,7 +279,9 @@ class _MyHomePageState extends State<MyHomePage> {
                         ),
                       ],
                     ),
-                    const SizedBox(height: 5,),
+                    const SizedBox(
+                      height: 5,
+                    ),
                     Row(
                       mainAxisSize: MainAxisSize.max,
                       children: [
@@ -273,7 +291,9 @@ class _MyHomePageState extends State<MyHomePage> {
                           decoration: const BoxDecoration(
                             color: AppColors.mainBlueColor,
                           ),
-                          child: const Center(child: Text("Year",style: TextStyle(color: Colors.white))),
+                          child: const Center(
+                              child: Text("Year",
+                                  style: TextStyle(color: Colors.white))),
                         ),
                         Container(
                           child: Expanded(
@@ -292,7 +312,9 @@ class _MyHomePageState extends State<MyHomePage> {
                         ),
                       ],
                     ),
-                    const SizedBox(height: 12,),
+                    const SizedBox(
+                      height: 12,
+                    ),
                     InkWell(
                       onTap: () {
                         selectImage();
@@ -328,7 +350,9 @@ class _MyHomePageState extends State<MyHomePage> {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 15,),
+                    const SizedBox(
+                      height: 15,
+                    ),
                     InkWell(
                       onTap: () {
                         selectPDF();
@@ -373,7 +397,8 @@ class _MyHomePageState extends State<MyHomePage> {
                       height: 45,
                       child: Visibility(
                         visible: !_addBookInProgress, // Change this line
-                        replacement: const Center(child: CircularProgressIndicator()),
+                        replacement:
+                            const Center(child: CircularProgressIndicator()),
                         child: ElevatedButton(
                           onPressed: addBooksToServer,
                           style: ElevatedButton.styleFrom(
@@ -422,17 +447,18 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                     ),
 
-
                     const SizedBox(height: 20.0),
 
                     SizedBox(
                       width: double.infinity,
                       height: 45,
                       child: ElevatedButton(
-                        onPressed: (){
+                        onPressed: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) =>  const DisplayBooksScreen()),
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    const DisplayBooksScreen()),
                           );
                         },
                         style: ElevatedButton.styleFrom(
@@ -453,11 +479,12 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                     const SizedBox(height: 20.0),
                     ElevatedButton(
-                      onPressed: (){
+                      onPressed: () {
                         Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) =>  const HomePageTest()),
-                                );
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const HomePageTest()),
+                        );
                       },
                       child: const Text('thes screen'),
                     ),
@@ -486,22 +513,12 @@ class _MyHomePageState extends State<MyHomePage> {
     FilePickerResult? result = await FilePicker.platform
         .pickFiles(type: FileType.custom, allowedExtensions: ['pdf']);
     if (result != null) {
-      List<int> fileBytes = result.files.single.bytes ?? [];
-      String fileName = result.files.single.name;
-
-      pdf = File(fileName);
-      await pdf?.writeAsBytes(fileBytes);
-
-      String filePath = pdf!.path;
-      print(fileName);
-      print(filePath);
+      PlatformFile file = result.files.first;
+      pdf = File(file.path!);
       setState(() {
-        fileText = fileName;
+        fileText = file.name;
       });
-    } else {
-      // User canceled the picker
-      print("Canceled file pick");
-    }
+    } else {}
   }
 
   void logOut() async {
@@ -510,7 +527,7 @@ class _MyHomePageState extends State<MyHomePage> {
       Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(builder: (context) => const LoginScreen()),
-              (route) => false);
+          (route) => false);
     }
   }
 }
