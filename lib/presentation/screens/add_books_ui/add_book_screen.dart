@@ -97,21 +97,22 @@ class _MyHomePageState extends State<MyHomePage> {
         final responseString = await response.stream.bytesToString();
         final responseData = json.decode(responseString);
         print('Request success with status ${response.statusCode}');
-        // Handle the response data
-      } else {
-        // Request failed
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Data added success')));
+        // Handle the response dat3
+      } else if(response.statusCode == 201) {
+        print('Request success with status ${response.statusCode}');
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Data added success')));
+      }else{
         print('Request failed with status ${response.statusCode}');
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Data added failed')));
       }
     } catch (e) {
       print('Error sending request: $e');
     }
   }
-
-
-
-
-
-
 
   @override
   Widget build(BuildContext context) {
