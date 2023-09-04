@@ -38,7 +38,9 @@ class NetworkCaller {
         Uri.parse(url),
         headers: {
           'Content-Type': 'application/json',
-          HttpHeaders.authorizationHeader: AuthUtility.userInfo.accessToken.toString()
+          //'access_token': AuthUtility.userInfo.accessToken.toString(),
+          HttpHeaders.authorizationHeader: 'Bearer ${AuthUtility.userInfo.accessToken.toString()}'
+
         },
         body: jsonEncode(body),
       );
