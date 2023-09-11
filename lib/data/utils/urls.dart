@@ -6,4 +6,5 @@ class Urls {
   static String login = '$_baseUrl/login';
   static String addBooks = '$_baseUrl/books';
   static String displayBooksList = '$_baseUrl/books?limit=10&page=1';
+  static String addPublishers = '$_baseUrl/publishers';
 }

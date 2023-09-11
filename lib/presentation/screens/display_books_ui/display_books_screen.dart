@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_pdf_library/data/models/auth_utility.dart';
@@ -38,8 +37,8 @@ class _DisplayBooksScreenState extends State<DisplayBooksScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Book List getting successful')));
     } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Failed')));
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Failed')));
     }
     _getBookListInProgress = false;
     if (mounted) {
@@ -51,21 +50,21 @@ class _DisplayBooksScreenState extends State<DisplayBooksScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Book List'),
-      ),
-      body: Column(
-        children: [
-          Container(
-            child: ElevatedButton(
-              onPressed: (){
-                getInProgressTasks();
-              } ,
-              child: Text(AuthUtility.bookListInfo.rows.toString() ?? ''),
+        appBar: AppBar(
+          title: Text('Book List'),
+        ),
+        body: Column(
+          children: [
+            Container(
+              child: ElevatedButton(
+                onPressed: (){
+                  getInProgressTasks();
+                } ,
+                child: Text(AuthUtility.bookListInfo.rows.toString() ?? ''),
+              ),
             ),
-          ),
-        ],
-      )
+          ],
+        )
     );
   }
 }

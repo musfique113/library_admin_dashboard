@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_pdf_library/data/models/auth_utility.dart';
 import 'package:flutter_pdf_library/presentation/screens/admin_login_ui/admin_login_screen.dart';
 import 'package:flutter_pdf_library/presentation/screens/add_books_ui/add_book_screen.dart';
+import 'package:flutter_pdf_library/presentation/screens/bottom_nav_bar_ui/bottom_nav_bar_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -25,7 +26,7 @@ class _SplashScreenState extends State<SplashScreen> {
           context,
           MaterialPageRoute(
               builder: (context) =>
-                  isLoggedIn ? MyHomePage() : const LoginScreen()),
+                  isLoggedIn ? const BottomNavbarScreen() : const LoginScreen()),
           (route) => false,
         );
       }
@@ -34,7 +35,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: Center(
         child: Icon(
           Icons.local_airport, // Replace 'your_icon_here' with the desired icon

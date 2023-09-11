@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_pdf_library/presentation/screens/splash_ui/splash_screen.dart';
+import 'package:flutter_pdf_library/presentation/ui_component/app_colors.dart';
 
 void main() {
   runApp(const LibraryDashboard());
@@ -23,7 +24,7 @@ class LibraryDashboard extends StatelessWidget {
           contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
           border: OutlineInputBorder(borderSide: BorderSide.none),
         ),
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
+        colorScheme: ColorScheme.fromSeed(seedColor: AppColors.mainBlueColor),
         useMaterial3: true,
       ),
       home: SplashScreen(),

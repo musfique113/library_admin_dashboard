@@ -16,12 +16,12 @@ import 'package:http_parser/http_parser.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mime/mime.dart';
 
-class MyHomePage extends StatefulWidget {
+class AddBooksScreen extends StatefulWidget {
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _AddBooksScreenState createState() => _AddBooksScreenState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _AddBooksScreenState extends State<AddBooksScreen> {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController authorIdController = TextEditingController();
   final TextEditingController noOfPagesController = TextEditingController();
@@ -126,10 +126,10 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         leading: const Icon(Icons.account_circle),
         title: Text(
-          '${AuthUtility.userInfo.user?.name ?? ''}',
+          '${AuthUtility.userInfo.user?.name ?? 'AdminName'}',
           style: ralewayStyle.copyWith(
             fontWeight: FontWeight.w400,
-            color: AppColors.blueDarkColor.withOpacity(0.5),
+            color: Colors.black,
             fontSize: 25.0,
           ),
         ),
@@ -179,15 +179,13 @@ class _MyHomePageState extends State<MyHomePage> {
                                   style: TextStyle(color: Colors.white))),
                         ),
                         Expanded(
-                          child: Container(
-                            child: Padding(
-                              padding: const EdgeInsetsDirectional.all(1),
-                              child: TextFormField(
-                                autofocus: true,
-                                controller: nameController,
-                                decoration: const InputDecoration(
-                                  border: InputBorder.none,
-                                ),
+                          child: Padding(
+                            padding: const EdgeInsetsDirectional.all(1),
+                            child: TextFormField(
+                              autofocus: true,
+                              controller: nameController,
+                              decoration: const InputDecoration(
+                                border: InputBorder.none,
                               ),
                             ),
                           ),
@@ -509,7 +507,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) =>
-                                    const DisplayBooksScreen()),
+                                    DisplayBooksScreen()),
                           );
                         },
                         style: ElevatedButton.styleFrom(
@@ -537,7 +535,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               builder: (context) => const HomePageTest()),
                         );
                       },
-                      child: const Text('thes screen'),
+                      child: const Text('test screen'),
                     ),
                   ],
                 ),
