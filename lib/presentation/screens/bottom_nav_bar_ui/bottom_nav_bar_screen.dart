@@ -4,6 +4,7 @@ import 'package:flutter_pdf_library/presentation/screens/add_books_ui/add_book_s
 import 'package:flutter_pdf_library/presentation/screens/add_categories_ui/add_categories_screen.dart';
 import 'package:flutter_pdf_library/presentation/screens/add_publishers_ui/add_publishers_screen.dart';
 import 'package:flutter_pdf_library/presentation/screens/display_books_ui/display_books_screen.dart';
+import 'package:flutter_pdf_library/presentation/ui_component/app_colors.dart';
 
 class BottomNavbarScreen extends StatefulWidget {
   const BottomNavbarScreen({Key? key}) : super(key: key);
@@ -35,7 +36,7 @@ class _BottomNavbarScreenState extends State<BottomNavbarScreen> {
             color: Colors.grey
         ),
         showUnselectedLabels: true,
-        selectedItemColor: Colors.green,
+        selectedItemColor: AppColors.mainBlueColor,
         onTap: (int index) {
           _selectedScreenIndex = index;
           //print(_selectedScreenIndex);
@@ -44,10 +45,10 @@ class _BottomNavbarScreenState extends State<BottomNavbarScreen> {
           }
         },
         items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.list_alt), label: 'Add Books'),
-          BottomNavigationBarItem(icon: Icon(Icons.access_time_rounded), label: 'Display'),
-          BottomNavigationBarItem(icon: Icon(Icons.cancel_outlined), label: 'Publishers'),
-          BottomNavigationBarItem(icon: Icon(Icons.check_circle_outline), label: 'Categories'),
+          BottomNavigationBarItem(icon: Icon(Icons.book_online_sharp), label: 'Add Books'),
+          BottomNavigationBarItem(icon: Icon(Icons.display_settings), label: 'Display'),
+          BottomNavigationBarItem(icon: Icon(Icons.account_balance_outlined), label: 'Publishers'),
+          BottomNavigationBarItem(icon: Icon(Icons.filter_list_alt), label: 'Categories'),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Authors'),
         ],
       ),
