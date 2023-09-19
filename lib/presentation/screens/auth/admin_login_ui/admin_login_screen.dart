@@ -6,10 +6,12 @@ import 'package:flutter_pdf_library/data/services/network_caller.dart';
 import 'package:flutter_pdf_library/data/utils/urls.dart';
 import 'package:flutter_pdf_library/presentation/custom_widgets/responsive_widgets.dart';
 import 'package:flutter_pdf_library/presentation/screens/add_books_ui/add_book_screen.dart';
+import 'package:flutter_pdf_library/presentation/screens/auth/sign_up_ui/sign_up_screen.dart';
 import 'package:flutter_pdf_library/presentation/screens/bottom_nav_bar_ui/bottom_nav_bar_screen.dart';
 import 'package:flutter_pdf_library/presentation/ui_component/app_colors.dart';
 import 'package:flutter_pdf_library/presentation/ui_component/app_icons.dart';
 import 'package:flutter_pdf_library/presentation/ui_component/app_style.dart';
+import 'package:get/get.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -49,7 +51,7 @@ class _LoginScreenState extends State<LoginScreen> {
         print("Login Sucess");
         Navigator.pushAndRemoveUntil(
             context,
-            MaterialPageRoute(builder: (context) => BottomNavbarScreen()),
+            MaterialPageRoute(builder: (context) => const BottomNavbarScreen()),
                 (route) => false);
       }
     } else {
@@ -153,7 +155,6 @@ class _LoginScreenState extends State<LoginScreen> {
                           child: Padding(
                             padding: const EdgeInsetsDirectional.all(1),
                             child: TextFormField(
-                              autofocus: true,
                               controller: _emailTEController,
                               obscureText: false,
                               decoration: const InputDecoration(
@@ -182,7 +183,6 @@ class _LoginScreenState extends State<LoginScreen> {
                               child: Padding(
                                 padding: const EdgeInsetsDirectional.all(1),
                                 child: TextFormField(
-                                  autofocus: true,
                                   controller: _passwordTEController,
                                   obscureText: !_passwordVisible,
                                   decoration: InputDecoration(
@@ -235,6 +235,34 @@ class _LoginScreenState extends State<LoginScreen> {
                                 color: AppColors.whiteColor,
                                 fontSize: 16.0,
                               ),
+                            ),
+                          ),
+                        ),
+                      ),
+
+                      SizedBox(height: height * 0.01),
+
+                      SizedBox(
+                        width: double.infinity,
+                        height: 45,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => SignUpScreen()));
+
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: AppColors.mainBlueColor,
+                            // Change the button color here
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(16.0),
+                            ),
+                          ),
+                          child: Text(
+                            'Sign Up',
+                            style: ralewayStyle.copyWith(
+                              fontWeight: FontWeight.w700,
+                              color: AppColors.whiteColor,
+                              fontSize: 16.0,
                             ),
                           ),
                         ),

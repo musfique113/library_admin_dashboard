@@ -9,4 +9,7 @@ class Urls {
   static String addPublishers = '$_baseUrl/publishers';
   static String addCategories= '$_baseUrl/category';
   static String addAuthors= '$_baseUrl/authors';
+  static String otpVerify= '$_baseUrl/verify-email-otp';
+
+
 }

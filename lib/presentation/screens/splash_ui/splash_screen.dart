@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_pdf_library/data/models/auth_utility.dart';
-import 'package:flutter_pdf_library/presentation/screens/admin_login_ui/admin_login_screen.dart';
+
 import 'package:flutter_pdf_library/presentation/screens/add_books_ui/add_book_screen.dart';
+import 'package:flutter_pdf_library/presentation/screens/auth/admin_login_ui/admin_login_screen.dart';
 import 'package:flutter_pdf_library/presentation/screens/bottom_nav_bar_ui/bottom_nav_bar_screen.dart';
 
 class SplashScreen extends StatefulWidget {
