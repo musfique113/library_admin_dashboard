@@ -24,7 +24,7 @@ class _BottomNavbarScreenState extends State<BottomNavbarScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print(_selectedScreenIndex);
+    //print(_selectedScreenIndex);
     return Scaffold(
       body: _screens[_selectedScreenIndex],
       bottomNavigationBar: BottomNavigationBar(
@@ -38,7 +38,7 @@ class _BottomNavbarScreenState extends State<BottomNavbarScreen> {
         selectedItemColor: Colors.green,
         onTap: (int index) {
           _selectedScreenIndex = index;
-          print(_selectedScreenIndex);
+          //print(_selectedScreenIndex);
           if (mounted) {
             setState(() {});
           }

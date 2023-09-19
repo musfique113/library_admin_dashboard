@@ -6,6 +6,7 @@ import 'package:flutter_pdf_library/data/services/network_caller.dart';
 import 'package:flutter_pdf_library/data/utils/urls.dart';
 import 'package:flutter_pdf_library/presentation/custom_widgets/responsive_widgets.dart';
 import 'package:flutter_pdf_library/presentation/screens/add_books_ui/add_book_screen.dart';
+import 'package:flutter_pdf_library/presentation/screens/bottom_nav_bar_ui/bottom_nav_bar_screen.dart';
 import 'package:flutter_pdf_library/presentation/ui_component/app_colors.dart';
 import 'package:flutter_pdf_library/presentation/ui_component/app_icons.dart';
 import 'package:flutter_pdf_library/presentation/ui_component/app_style.dart';
@@ -18,9 +19,9 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final TextEditingController _emailTEController = TextEditingController();
-  final TextEditingController _passwordTEController = TextEditingController();
+  //final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController _emailTEController = TextEditingController(text: "musfique113@gmail.com");
+  final TextEditingController _passwordTEController = TextEditingController(text: "password");
 
   bool _passwordVisible = false;
   bool _signInProgress = false;
@@ -48,7 +49,7 @@ class _LoginScreenState extends State<LoginScreen> {
         print("Login Sucess");
         Navigator.pushAndRemoveUntil(
             context,
-            MaterialPageRoute(builder: (context) => AddBooksScreen()),
+            MaterialPageRoute(builder: (context) => BottomNavbarScreen()),
                 (route) => false);
       }
     } else {
