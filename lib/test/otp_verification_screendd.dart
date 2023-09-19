@@ -23,7 +23,6 @@ class _OTPlVerificationScreenState extends State<OTPlVerificationScreen> {
   final TextEditingController _otpTEController =
   TextEditingController(text: "1234");
 
-
   //TODO: set the countdown to 120
   int _countdown = 20; // Initial countdown time in seconds
   late Timer _timer;
@@ -40,7 +39,6 @@ class _OTPlVerificationScreenState extends State<OTPlVerificationScreen> {
       "email": widget.email,
       "otp": _otpTEController.text,
     };
-
 
 
     final NetworkResponse response =
@@ -154,14 +152,14 @@ class _OTPlVerificationScreenState extends State<OTPlVerificationScreen> {
                         text: TextSpan(
                           children: [
                             TextSpan(
-                                text: 'Verify',
+                                text: 'Let’s',
                                 style: ralewayStyle.copyWith(
                                   fontSize: 25.0,
                                   color: AppColors.blueDarkColor,
                                   fontWeight: FontWeight.normal,
                                 )),
                             TextSpan(
-                              text: ' OTP 👇',
+                              text: ' Sign In 👇',
                               style: ralewayStyle.copyWith(
                                 fontWeight: FontWeight.w800,
                                 color: AppColors.blueDarkColor,
@@ -173,7 +171,7 @@ class _OTPlVerificationScreenState extends State<OTPlVerificationScreen> {
                       ),
                       SizedBox(height: height * 0.02),
                       Text(
-                        "We've sent a one-time verification code to ${widget.email}",
+                        'Hey, Enter your details to get sign in \nto your account.',
                         style: ralewayStyle.copyWith(
                           fontSize: 12.0,
                           fontWeight: FontWeight.w400,
@@ -182,41 +180,37 @@ class _OTPlVerificationScreenState extends State<OTPlVerificationScreen> {
                       ),
                       SizedBox(height: height * 0.064),
 
-                      Row(
-                        children: [
-                          Form(
-                            key: _formKey,
-                            child: PinCodeTextField(
-                              length: 4,
-                              //validator: FormValidator.validateOTP,
-                              obscureText: false,
-                              controller: _otpTEController,
-                              animationType: AnimationType.fade,
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              keyboardType: TextInputType.number,
-                              pinTheme: PinTheme(
-                                shape: PinCodeFieldShape.box,
-                                borderRadius: BorderRadius.circular(5),
-                                fieldHeight: 50,
-                                fieldWidth: 50,
-                                activeFillColor: Colors.white,
-                                inactiveFillColor: Colors.white,
-                                selectedFillColor: Colors.white,
-                                activeColor: AppColors.mainBlueColor,
-                                inactiveColor: AppColors.mainBlueColor,
-                                selectedColor: AppColors.purpleDark,
-                              ),
-                              animationDuration: const Duration(milliseconds: 300),
-                              enableActiveFill: true,
-                              onCompleted: (v) {},
-                              onChanged: (value) {},
-                              beforeTextPaste: (text) {
-                                return true;
-                              },
-                              appContext: context,
-                            ),
+                      Form(
+                        key: _formKey,
+                        child: PinCodeTextField(
+                          length: 4,
+                          //validator: FormValidator.validateOTP,
+                          obscureText: false,
+                          controller: _otpTEController,
+                          animationType: AnimationType.fade,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          keyboardType: TextInputType.number,
+                          pinTheme: PinTheme(
+                            shape: PinCodeFieldShape.box,
+                            borderRadius: BorderRadius.circular(5),
+                            fieldHeight: 50,
+                            fieldWidth: 50,
+                            activeFillColor: Colors.white,
+                            inactiveFillColor: Colors.white,
+                            selectedFillColor: Colors.white,
+                            activeColor: AppColors.mainBlueColor,
+                            inactiveColor: AppColors.mainBlueColor,
+                            selectedColor: Colors.green,
                           ),
-                        ],
+                          animationDuration: const Duration(milliseconds: 300),
+                          enableActiveFill: true,
+                          onCompleted: (v) {},
+                          onChanged: (value) {},
+                          beforeTextPaste: (text) {
+                            return true;
+                          },
+                          appContext: context,
+                        ),
                       ),
 
 
@@ -256,34 +250,28 @@ class _OTPlVerificationScreenState extends State<OTPlVerificationScreen> {
                       const SizedBox(
                         height: 24,
                       ),
-                      Center(
-                        child: Column(
+                      RichText(
+                        text: TextSpan(
+                          style: const TextStyle(color: Colors.grey),
                           children: [
-                            RichText(
-                              text: TextSpan(
-                                style: const TextStyle(color: Colors.grey),
-                                children: [
-                                  const TextSpan(text: 'This code will expire in '),
-                                  TextSpan(
-                                    text: '$_countdown s',
-                                    style: const TextStyle(
-                                      color: AppColors.mainBlueColor,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            TextButton(
-                              onPressed: _countdown > 0 ? null : _resendCode,
-                              style: TextButton.styleFrom(
-                                  foregroundColor: Colors.grey),
-                              child: Text(
-                                _countdown > 0 ? ' ' : 'Resend Code',
-                                style: const TextStyle(fontSize: 16),
+                            const TextSpan(text: 'This code will expire in '),
+                            TextSpan(
+                              text: '$_countdown s',
+                              style: const TextStyle(
+                                color: AppColors.mainBlueColor,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
                           ],
+                        ),
+                      ),
+                      TextButton(
+                        onPressed: _countdown > 0 ? null : _resendCode,
+                        style: TextButton.styleFrom(
+                            foregroundColor: Colors.grey),
+                        child: Text(
+                          _countdown > 0 ? ' ' : 'Resend Code',
+                          style: const TextStyle(fontSize: 16),
                         ),
                       ),
                     ],
