@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_pdf_library/data/models/auth_utility.dart';
-
-import 'package:flutter_pdf_library/presentation/screens/add_books_ui/add_book_screen.dart';
 import 'package:flutter_pdf_library/presentation/screens/auth/admin_login_ui/admin_login_screen.dart';
 import 'package:flutter_pdf_library/presentation/screens/bottom_nav_bar_ui/bottom_nav_bar_screen.dart';
 
@@ -26,8 +24,9 @@ class _SplashScreenState extends State<SplashScreen> {
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
-              builder: (context) =>
-                  isLoggedIn ? const BottomNavbarScreen() : const LoginScreen()),
+              builder: (context) => isLoggedIn
+                  ? const BottomNavbarScreen()
+                  : const LoginScreen()),
           (route) => false,
         );
       }

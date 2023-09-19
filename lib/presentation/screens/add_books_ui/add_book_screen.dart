@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_pdf_library/data/models/auth_utility.dart';
@@ -60,7 +61,7 @@ class _AddBooksScreenState extends State<AddBooksScreen> {
     final request = http.MultipartRequest('POST', Uri.parse(apiUrl));
     // Set authorization header
     request.headers['Authorization'] =
-    'Bearer ${AuthUtility.userInfo.accessToken.toString()}';
+        'Bearer ${AuthUtility.userInfo.accessToken.toString()}';
 
     // Add form fields
     request.fields['name'] = name;
@@ -115,7 +116,6 @@ class _AddBooksScreenState extends State<AddBooksScreen> {
       });
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -181,7 +181,7 @@ class _AddBooksScreenState extends State<AddBooksScreen> {
                           child: Padding(
                             padding: const EdgeInsetsDirectional.all(1),
                             child: TextFormField(
-                              autofocus: true,
+                              //autofocus: true,
                               controller: nameController,
                               decoration: const InputDecoration(
                                 border: InputBorder.none,
@@ -212,7 +212,7 @@ class _AddBooksScreenState extends State<AddBooksScreen> {
                             child: Padding(
                               padding: const EdgeInsetsDirectional.all(1),
                               child: TextFormField(
-                                autofocus: true,
+                                //autofocus: true,
                                 controller: authorIdController,
                                 obscureText: false,
                                 decoration: const InputDecoration(
@@ -245,7 +245,7 @@ class _AddBooksScreenState extends State<AddBooksScreen> {
                             child: Padding(
                               padding: const EdgeInsetsDirectional.all(1),
                               child: TextFormField(
-                                autofocus: true,
+                                //autofocus: true,
                                 controller: noOfPagesController,
                                 obscureText: false,
                                 decoration: const InputDecoration(
@@ -278,7 +278,7 @@ class _AddBooksScreenState extends State<AddBooksScreen> {
                             child: Padding(
                               padding: const EdgeInsetsDirectional.all(1),
                               child: TextFormField(
-                                autofocus: true,
+                                //autofocus: true,
                                 controller: publisherIdController,
                                 obscureText: false,
                                 decoration: const InputDecoration(
@@ -311,7 +311,7 @@ class _AddBooksScreenState extends State<AddBooksScreen> {
                             child: Padding(
                               padding: const EdgeInsetsDirectional.all(1),
                               child: TextFormField(
-                                autofocus: true,
+                                //autofocus: true,
                                 controller: categoryIdController,
                                 obscureText: false,
                                 decoration: const InputDecoration(
@@ -344,7 +344,7 @@ class _AddBooksScreenState extends State<AddBooksScreen> {
                             child: Padding(
                               padding: const EdgeInsetsDirectional.all(1),
                               child: TextFormField(
-                                autofocus: true,
+                                //autofocus: true,
                                 controller: publishYearController,
                                 obscureText: false,
                                 decoration: const InputDecoration(
@@ -445,7 +445,9 @@ class _AddBooksScreenState extends State<AddBooksScreen> {
                             const Center(child: CircularProgressIndicator()),
                         child: Visibility(
                           visible: _addBookInProgress == false,
-                          replacement: const Center(child: CircularProgressIndicator(),),
+                          replacement: const Center(
+                            child: CircularProgressIndicator(),
+                          ),
                           child: ElevatedButton(
                             onPressed: uploadBookData,
                             style: ElevatedButton.styleFrom(
@@ -505,8 +507,7 @@ class _AddBooksScreenState extends State<AddBooksScreen> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) =>
-                                    DisplayBooksScreen()),
+                                builder: (context) => DisplayBooksScreen()),
                           );
                         },
                         style: ElevatedButton.styleFrom(

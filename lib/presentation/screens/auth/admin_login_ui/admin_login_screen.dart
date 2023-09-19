@@ -5,13 +5,10 @@ import 'package:flutter_pdf_library/data/models/network_response.dart';
 import 'package:flutter_pdf_library/data/services/network_caller.dart';
 import 'package:flutter_pdf_library/data/utils/urls.dart';
 import 'package:flutter_pdf_library/presentation/custom_widgets/responsive_widgets.dart';
-import 'package:flutter_pdf_library/presentation/screens/add_books_ui/add_book_screen.dart';
 import 'package:flutter_pdf_library/presentation/screens/auth/sign_up_ui/sign_up_screen.dart';
 import 'package:flutter_pdf_library/presentation/screens/bottom_nav_bar_ui/bottom_nav_bar_screen.dart';
 import 'package:flutter_pdf_library/presentation/ui_component/app_colors.dart';
-import 'package:flutter_pdf_library/presentation/ui_component/app_icons.dart';
 import 'package:flutter_pdf_library/presentation/ui_component/app_style.dart';
-import 'package:get/get.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -22,8 +19,10 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   //final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final TextEditingController _emailTEController = TextEditingController(text: "musfique113@gmail.com");
-  final TextEditingController _passwordTEController = TextEditingController(text: "password");
+  final TextEditingController _emailTEController =
+      TextEditingController(text: "musfique113@gmail.com");
+  final TextEditingController _passwordTEController =
+      TextEditingController(text: "password");
 
   bool _passwordVisible = false;
   bool _signInProgress = false;
@@ -38,7 +37,7 @@ class _LoginScreenState extends State<LoginScreen> {
     };
 
     final NetworkResponse response =
-    await NetworkCaller().postRequest(Urls.login, requestBody);
+        await NetworkCaller().postRequest(Urls.login, requestBody);
     _signInProgress = false;
     if (mounted) {
       setState(() {});
@@ -52,7 +51,7 @@ class _LoginScreenState extends State<LoginScreen> {
         Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(builder: (context) => const BottomNavbarScreen()),
-                (route) => false);
+            (route) => false);
       }
     } else {
       if (mounted) {
@@ -78,21 +77,21 @@ class _LoginScreenState extends State<LoginScreen> {
             ResponsiveLayout.isPhone(context)
                 ? const SizedBox()
                 : Expanded(
-              child: Container(
-                height: height,
-                color: AppColors.mainBlueColor,
-                child: Center(
-                  child: Text(
-                    'PDF Library',
-                    style: ralewayStyle.copyWith(
-                      fontSize: 48.0,
-                      color: AppColors.whiteColor,
-                      fontWeight: FontWeight.w800,
+                    child: Container(
+                      height: height,
+                      color: AppColors.mainBlueColor,
+                      child: Center(
+                        child: Text(
+                          'PDF Library',
+                          style: ralewayStyle.copyWith(
+                            fontSize: 48.0,
+                            color: AppColors.whiteColor,
+                            fontWeight: FontWeight.w800,
+                          ),
+                        ),
+                      ),
                     ),
                   ),
-                ),
-              ),
-            ),
             Expanded(
               child: Container(
                 height: height,
@@ -139,34 +138,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                       SizedBox(height: height * 0.064),
-                  Row(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Container(
-                        width: 90.0,
-                        height: 48.0,
-                        decoration: const BoxDecoration(
-                          color: AppColors.mainBlueColor,
-                        ),
-                        child: const Center(child: Text("Email",style: TextStyle(color: Colors.white))),
-                      ),
-                      Expanded(
-                        child: Container(
-                          child: Padding(
-                            padding: const EdgeInsetsDirectional.all(1),
-                            child: TextFormField(
-                              controller: _emailTEController,
-                              obscureText: false,
-                              decoration: const InputDecoration(
-                                border: InputBorder.none,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                      const SizedBox(height: 5,),
                       Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
@@ -176,7 +147,41 @@ class _LoginScreenState extends State<LoginScreen> {
                             decoration: const BoxDecoration(
                               color: AppColors.mainBlueColor,
                             ),
-                            child: const Center(child: Text("Password",style: TextStyle(color: Colors.white))),
+                            child: const Center(
+                                child: Text("Email",
+                                    style: TextStyle(color: Colors.white))),
+                          ),
+                          Expanded(
+                            child: Container(
+                              child: Padding(
+                                padding: const EdgeInsetsDirectional.all(1),
+                                child: TextFormField(
+                                  controller: _emailTEController,
+                                  obscureText: false,
+                                  decoration: const InputDecoration(
+                                    border: InputBorder.none,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Container(
+                            width: 90.0,
+                            height: 48.0,
+                            decoration: const BoxDecoration(
+                              color: AppColors.mainBlueColor,
+                            ),
+                            child: const Center(
+                                child: Text("Password",
+                                    style: TextStyle(color: Colors.white))),
                           ),
                           Expanded(
                             child: Container(
@@ -204,17 +209,14 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ],
                       ),
-
-
                       SizedBox(height: height * 0.01),
-
                       SizedBox(
                         width: double.infinity,
                         height: 45,
                         child: Visibility(
                           visible: _signInProgress == false,
                           replacement:
-                          const Center(child: CircularProgressIndicator()),
+                              const Center(child: CircularProgressIndicator()),
                           child: ElevatedButton(
                             onPressed: () {
                               print(
@@ -239,16 +241,16 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                       ),
-
                       SizedBox(height: height * 0.01),
-
                       SizedBox(
                         width: double.infinity,
                         height: 45,
                         child: ElevatedButton(
                           onPressed: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => SignUpScreen()));
-
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => SignUpScreen()));
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: AppColors.mainBlueColor,

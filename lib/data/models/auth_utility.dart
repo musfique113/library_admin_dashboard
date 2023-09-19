@@ -38,7 +38,8 @@ class AuthUtility {
 
   static Future<void> getBooksList(BookListModel bookListModel) async {
     SharedPreferences _sharedPrefs = await SharedPreferences.getInstance();
-    await _sharedPrefs.setString('user-data', jsonEncode(bookListModel.toJson()));
+    await _sharedPrefs.setString(
+        'user-data', jsonEncode(bookListModel.toJson()));
     bookListInfo = BookListModel();
   }
 }

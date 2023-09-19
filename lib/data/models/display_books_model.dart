@@ -48,19 +48,19 @@ class Rows {
 
   Rows(
       {this.id,
-        this.name,
-        this.authorId,
-        this.authorName,
-        this.noOfPages,
-        this.publisherId,
-        this.publisherName,
-        this.categoryId,
-        this.categoryName,
-        this.publishYear,
-        this.image,
-        this.pdf,
-        this.createdAt,
-        this.updatedAt});
+      this.name,
+      this.authorId,
+      this.authorName,
+      this.noOfPages,
+      this.publisherId,
+      this.publisherName,
+      this.categoryId,
+      this.categoryName,
+      this.publishYear,
+      this.image,
+      this.pdf,
+      this.createdAt,
+      this.updatedAt});
 
   Rows.fromJson(Map<String, dynamic> json) {
     id = json['id'];

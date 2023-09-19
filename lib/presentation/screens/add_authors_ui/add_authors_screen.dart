@@ -6,9 +6,9 @@ import 'package:flutter_pdf_library/data/utils/urls.dart';
 import 'package:flutter_pdf_library/presentation/custom_widgets/responsive_widgets.dart';
 import 'package:flutter_pdf_library/presentation/ui_component/app_colors.dart';
 import 'package:flutter_pdf_library/presentation/ui_component/app_style.dart';
+import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:http/http.dart' as http;
 import 'package:mime/mime.dart';
 
 class AddAuthorsScreen extends StatefulWidget {
@@ -19,14 +19,12 @@ class AddAuthorsScreen extends StatefulWidget {
 }
 
 class _AddAuthorsScreenState extends State<AddAuthorsScreen> {
-
   final TextEditingController _emailTEController = TextEditingController();
   final TextEditingController _authorNameTEController = TextEditingController();
   final TextEditingController _addressTEController = TextEditingController();
 
   XFile? imageFile;
   ImagePicker picker = ImagePicker();
-
 
   bool _addAuthorsProgress = false;
 
@@ -40,8 +38,7 @@ class _AddAuthorsScreenState extends State<AddAuthorsScreen> {
     String address = _addressTEController.text;
     String email = _emailTEController.text;
 
-
-    if (imageFile == null ) {
+    if (imageFile == null) {
       print('Image must be selected.');
       setState(() {
         _addAuthorsProgress = false; // Stop the progress indicator
@@ -53,13 +50,12 @@ class _AddAuthorsScreenState extends State<AddAuthorsScreen> {
     final request = http.MultipartRequest('POST', Uri.parse(apiUrl));
     // Set authorization header
     request.headers['Authorization'] =
-    'Bearer ${AuthUtility.userInfo.accessToken.toString()}';
+        'Bearer ${AuthUtility.userInfo.accessToken.toString()}';
 
     // Add form fields
     request.fields['name'] = author_name;
     request.fields['address'] = address;
     request.fields['email'] = email;
-
 
     // Add the image file
     List<int> imageBytes = await imageFile!.readAsBytes();
@@ -107,7 +103,6 @@ class _AddAuthorsScreenState extends State<AddAuthorsScreen> {
     });
   }
 
-
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -135,20 +130,20 @@ class _AddAuthorsScreenState extends State<AddAuthorsScreen> {
             ResponsiveLayout.isPhone(context)
                 ? const SizedBox()
                 : Container(
-              height: height,
-              width: 500,
-              color: AppColors.mainBlueColor,
-              child: Center(
-                child: Text(
-                  'PDF Library',
-                  style: ralewayStyle.copyWith(
-                    fontSize: 48.0,
-                    color: AppColors.whiteColor,
-                    fontWeight: FontWeight.w800,
+                    height: height,
+                    width: 500,
+                    color: AppColors.mainBlueColor,
+                    child: Center(
+                      child: Text(
+                        'PDF Library',
+                        style: ralewayStyle.copyWith(
+                          fontSize: 48.0,
+                          color: AppColors.whiteColor,
+                          fontWeight: FontWeight.w800,
+                        ),
+                      ),
+                    ),
                   ),
-                ),
-              ),
-            ),
             Expanded(
               child: SingleChildScrollView(
                 padding: const EdgeInsets.all(16.0),
@@ -169,15 +164,13 @@ class _AddAuthorsScreenState extends State<AddAuthorsScreen> {
                                   style: TextStyle(color: Colors.white))),
                         ),
                         Expanded(
-                          child: Container(
-                            child: Padding(
-                              padding: const EdgeInsetsDirectional.all(1),
-                              child: TextFormField(
-                                autofocus: true,
-                                controller: _authorNameTEController,
-                                decoration: const InputDecoration(
-                                  border: InputBorder.none,
-                                ),
+                          child: Padding(
+                            padding: const EdgeInsetsDirectional.all(1),
+                            child: TextFormField(
+                              //autofocus: true,
+                              controller: _authorNameTEController,
+                              decoration: const InputDecoration(
+                                border: InputBorder.none,
                               ),
                             ),
                           ),
@@ -205,7 +198,7 @@ class _AddAuthorsScreenState extends State<AddAuthorsScreen> {
                             child: Padding(
                               padding: const EdgeInsetsDirectional.all(1),
                               child: TextFormField(
-                                autofocus: true,
+                                //autofocus: true,
                                 controller: _emailTEController,
                                 obscureText: false,
                                 decoration: const InputDecoration(
@@ -238,7 +231,7 @@ class _AddAuthorsScreenState extends State<AddAuthorsScreen> {
                             child: Padding(
                               padding: const EdgeInsetsDirectional.all(1),
                               child: TextFormField(
-                                autofocus: true,
+                                //autofocus: true,
                                 controller: _addressTEController,
                                 obscureText: false,
                                 decoration: const InputDecoration(
@@ -297,10 +290,12 @@ class _AddAuthorsScreenState extends State<AddAuthorsScreen> {
                       child: Visibility(
                         visible: !_addAuthorsProgress, // Change this line
                         replacement:
-                        const Center(child: CircularProgressIndicator()),
+                            const Center(child: CircularProgressIndicator()),
                         child: Visibility(
                           visible: _addAuthorsProgress == false,
-                          replacement: const Center(child: CircularProgressIndicator(),),
+                          replacement: const Center(
+                            child: CircularProgressIndicator(),
+                          ),
                           child: ElevatedButton(
                             onPressed: addAuthorsData,
                             style: ElevatedButton.styleFrom(
@@ -321,7 +316,6 @@ class _AddAuthorsScreenState extends State<AddAuthorsScreen> {
                         ),
                       ),
                     ),
-
                   ],
                 ),
               ),

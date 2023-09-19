@@ -28,22 +28,28 @@ class _AddCategoriesScreenState extends State<AddCategoriesScreen> {
     String name = _nameTEController.text;
 
 
+    final request = http.Request('POST', Uri.parse(apiUrl));
 
-    // Create a multipart request
-    final request = http.MultipartRequest('POST', Uri.parse(apiUrl));
-    // Set authorization header
+
     request.headers['Authorization'] =
     'Bearer ${AuthUtility.userInfo.accessToken.toString()}';
 
-    // Add form fields
-    request.fields['name'] = name;
+
+    request.headers['Content-Type'] = 'application/json';
 
 
-    // Send the request
+    Map<String, dynamic> rawData = {
+      'name': name,
+
+    };
+
+
+    request.body = json.encode(rawData);
+
     try {
       final response = await request.send();
       if (response.statusCode == 200 || response.statusCode == 201) {
-        // Request was successful
+
         final responseString = await response.stream.bytesToString();
         final responseData = json.decode(responseString);
         print('Request success with status ${response.statusCode}');
@@ -63,6 +69,7 @@ class _AddCategoriesScreenState extends State<AddCategoriesScreen> {
     }
   }
 
+
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -71,7 +78,7 @@ class _AddCategoriesScreenState extends State<AddCategoriesScreen> {
       appBar: AppBar(
         leading: const Icon(Icons.account_circle),
         title: Text(
-          '${AuthUtility.userInfo.user?.name ?? 'AdminName'}',
+          AuthUtility.userInfo.user?.name ?? 'AdminName',
           style: ralewayStyle.copyWith(
             fontWeight: FontWeight.w400,
             color: Colors.black,
@@ -90,20 +97,20 @@ class _AddCategoriesScreenState extends State<AddCategoriesScreen> {
             ResponsiveLayout.isPhone(context)
                 ? const SizedBox()
                 : Container(
-              height: height,
-              width: 500,
-              color: AppColors.mainBlueColor,
-              child: Center(
-                child: Text(
-                  'PDF Library',
-                  style: ralewayStyle.copyWith(
-                    fontSize: 48.0,
-                    color: AppColors.whiteColor,
-                    fontWeight: FontWeight.w800,
+                    height: height,
+                    width: 500,
+                    color: AppColors.mainBlueColor,
+                    child: Center(
+                      child: Text(
+                        'PDF Library',
+                        style: ralewayStyle.copyWith(
+                          fontSize: 48.0,
+                          color: AppColors.whiteColor,
+                          fontWeight: FontWeight.w800,
+                        ),
+                      ),
+                    ),
                   ),
-                ),
-              ),
-            ),
             Expanded(
               child: SingleChildScrollView(
                 padding: const EdgeInsets.all(16.0),
@@ -124,15 +131,13 @@ class _AddCategoriesScreenState extends State<AddCategoriesScreen> {
                                   style: TextStyle(color: Colors.white))),
                         ),
                         Expanded(
-                          child: Container(
-                            child: Padding(
-                              padding: const EdgeInsetsDirectional.all(1),
-                              child: TextFormField(
-                                autofocus: true,
-                                controller: _nameTEController,
-                                decoration: const InputDecoration(
-                                  border: InputBorder.none,
-                                ),
+                          child: Padding(
+                            padding: const EdgeInsetsDirectional.all(1),
+                            child: TextFormField(
+                              //autofocus: true,
+                              controller: _nameTEController,
+                              decoration: const InputDecoration(
+                                border: InputBorder.none,
                               ),
                             ),
                           ),
@@ -146,14 +151,16 @@ class _AddCategoriesScreenState extends State<AddCategoriesScreen> {
                       width: double.infinity,
                       height: 45,
                       child: Visibility(
-                        visible: !_addCategoriesProgress, // Change this line
+                        visible: !_addCategoriesProgress,
                         replacement:
-                        const Center(child: CircularProgressIndicator()),
+                            const Center(child: CircularProgressIndicator()),
                         child: Visibility(
                           visible: _addCategoriesProgress == false,
-                          replacement: const Center(child: CircularProgressIndicator(),),
+                          replacement: const Center(
+                            child: CircularProgressIndicator(),
+                          ),
                           child: ElevatedButton(
-                            onPressed: addCategoriesData ,
+                            onPressed: addCategoriesData,
                             style: ElevatedButton.styleFrom(
                               backgroundColor: AppColors.mainBlueColor,
                               shape: RoundedRectangleBorder(
@@ -172,7 +179,6 @@ class _AddCategoriesScreenState extends State<AddCategoriesScreen> {
                         ),
                       ),
                     ),
-
                   ],
                 ),
               ),

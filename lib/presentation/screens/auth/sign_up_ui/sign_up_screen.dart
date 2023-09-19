@@ -8,7 +8,6 @@ import 'package:flutter_pdf_library/presentation/screens/auth/otp_verification_u
 import 'package:flutter_pdf_library/presentation/ui_component/app_colors.dart';
 import 'package:flutter_pdf_library/presentation/ui_component/app_style.dart';
 
-
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key);
 
@@ -18,9 +17,12 @@ class SignUpScreen extends StatefulWidget {
 
 class _SignUpScreenState extends State<SignUpScreen> {
   //final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final TextEditingController _nameTEController = TextEditingController(text: "Musfique");
-  final TextEditingController _emailTEController = TextEditingController(text: "furkahaydu@gufum.com");
-  final TextEditingController _passwordTEController = TextEditingController(text: "password");
+  final TextEditingController _nameTEController =
+      TextEditingController(text: "Musfique");
+  final TextEditingController _emailTEController =
+      TextEditingController(text: "furkahaydu@gufum.com");
+  final TextEditingController _passwordTEController =
+      TextEditingController(text: "password");
 
   bool _passwordVisible = false;
   bool _signUpProgress = false;
@@ -36,7 +38,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     };
 
     final NetworkResponse response =
-    await NetworkCaller().postRequest(Urls.registration , requestBody);
+        await NetworkCaller().postRequest(Urls.registration, requestBody);
     _signUpProgress = false;
     if (mounted) {
       setState(() {});
@@ -47,12 +49,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
         print("SignUp sucess");
         Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) =>  OTPlVerificationScreen(email: _emailTEController.text.trim())));
+            MaterialPageRoute(
+                builder: (context) => OTPlVerificationScreen(
+                    email: _emailTEController.text.trim())));
       }
     } else {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Failed Signing up')));
+        ScaffoldMessenger.of(context)
+            .showSnackBar(const SnackBar(content: Text('Failed Signing up')));
       }
     }
   }
@@ -73,21 +77,21 @@ class _SignUpScreenState extends State<SignUpScreen> {
             ResponsiveLayout.isPhone(context)
                 ? const SizedBox()
                 : Expanded(
-              child: Container(
-                height: height,
-                color: AppColors.mainBlueColor,
-                child: Center(
-                  child: Text(
-                    'PDF Library',
-                    style: ralewayStyle.copyWith(
-                      fontSize: 48.0,
-                      color: AppColors.whiteColor,
-                      fontWeight: FontWeight.w800,
+                    child: Container(
+                      height: height,
+                      color: AppColors.mainBlueColor,
+                      child: Center(
+                        child: Text(
+                          'PDF Library',
+                          style: ralewayStyle.copyWith(
+                            fontSize: 48.0,
+                            color: AppColors.whiteColor,
+                            fontWeight: FontWeight.w800,
+                          ),
+                        ),
+                      ),
                     ),
                   ),
-                ),
-              ),
-            ),
             Expanded(
               child: Container(
                 height: height,
@@ -133,7 +137,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           color: AppColors.textColor,
                         ),
                       ),
-
                       SizedBox(height: height * 0.064),
                       Row(
                         mainAxisSize: MainAxisSize.max,
@@ -144,14 +147,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             decoration: const BoxDecoration(
                               color: AppColors.mainBlueColor,
                             ),
-                            child: const Center(child: Text("Name",style: TextStyle(color: Colors.white))),
+                            child: const Center(
+                                child: Text("Name",
+                                    style: TextStyle(color: Colors.white))),
                           ),
                           Expanded(
                             child: Container(
                               child: Padding(
                                 padding: const EdgeInsetsDirectional.all(1),
                                 child: TextFormField(
-
                                   controller: _nameTEController,
                                   obscureText: false,
                                   decoration: const InputDecoration(
@@ -163,7 +167,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           ),
                         ],
                       ),
-                      const SizedBox(height: 5,),
+                      const SizedBox(
+                        height: 5,
+                      ),
                       Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
@@ -173,7 +179,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             decoration: const BoxDecoration(
                               color: AppColors.mainBlueColor,
                             ),
-                            child: const Center(child: Text("Email",style: TextStyle(color: Colors.white))),
+                            child: const Center(
+                                child: Text("Email",
+                                    style: TextStyle(color: Colors.white))),
                           ),
                           Expanded(
                             child: Padding(
@@ -189,7 +197,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           ),
                         ],
                       ),
-                      const SizedBox(height: 5,),
+                      const SizedBox(
+                        height: 5,
+                      ),
                       Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
@@ -199,7 +209,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             decoration: const BoxDecoration(
                               color: AppColors.mainBlueColor,
                             ),
-                            child: const Center(child: Text("Password",style: TextStyle(color: Colors.white))),
+                            child: const Center(
+                                child: Text("Password",
+                                    style: TextStyle(color: Colors.white))),
                           ),
                           Expanded(
                             child: Padding(
@@ -225,17 +237,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           ),
                         ],
                       ),
-
-
                       SizedBox(height: height * 0.01),
-
                       SizedBox(
                         width: double.infinity,
                         height: 45,
                         child: Visibility(
                           visible: _signUpProgress == false,
                           replacement:
-                          const Center(child: CircularProgressIndicator()),
+                              const Center(child: CircularProgressIndicator()),
                           child: ElevatedButton(
                             onPressed: () {
                               signUp();
@@ -258,17 +267,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           ),
                         ),
                       ),
-
-
                       SizedBox(height: height * 0.01),
-
                       SizedBox(
                         width: double.infinity,
                         height: 45,
                         child: ElevatedButton(
                           onPressed: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginScreen()));
-
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const LoginScreen()));
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: AppColors.mainBlueColor,

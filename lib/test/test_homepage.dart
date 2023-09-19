@@ -12,11 +12,10 @@ class _HomePageTestState extends State<HomePageTest> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor:  Colors.red,
+        backgroundColor: Colors.red,
         automaticallyImplyLeading: false,
-        ),
+      ),
       body: SafeArea(
-
         child: Row(
           mainAxisSize: MainAxisSize.max,
           children: [
@@ -43,7 +42,6 @@ class _HomePageTestState extends State<HomePageTest> {
                       borderRadius: BorderRadius.circular(8.0),
                     ),
                   ),
-
                 ),
               ),
             ),

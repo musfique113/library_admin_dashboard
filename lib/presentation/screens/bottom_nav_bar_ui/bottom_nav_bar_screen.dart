@@ -15,7 +15,7 @@ class BottomNavbarScreen extends StatefulWidget {
 
 class _BottomNavbarScreenState extends State<BottomNavbarScreen> {
   int _selectedScreenIndex = 0;
-  final List<Widget> _screens =  [
+  final List<Widget> _screens = [
     AddBooksScreen(),
     const DisplayBooksScreen(),
     const AddPublishersScreen(),
@@ -32,9 +32,7 @@ class _BottomNavbarScreenState extends State<BottomNavbarScreen> {
         type: BottomNavigationBarType.fixed,
         currentIndex: _selectedScreenIndex,
         unselectedItemColor: Colors.grey,
-        unselectedLabelStyle: const TextStyle(
-            color: Colors.grey
-        ),
+        unselectedLabelStyle: const TextStyle(color: Colors.grey),
         showUnselectedLabels: true,
         selectedItemColor: AppColors.mainBlueColor,
         onTap: (int index) {
@@ -45,14 +43,17 @@ class _BottomNavbarScreenState extends State<BottomNavbarScreen> {
           }
         },
         items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.book_online_sharp), label: 'Add Books'),
-          BottomNavigationBarItem(icon: Icon(Icons.display_settings), label: 'Display'),
-          BottomNavigationBarItem(icon: Icon(Icons.account_balance_outlined), label: 'Publishers'),
-          BottomNavigationBarItem(icon: Icon(Icons.filter_list_alt), label: 'Categories'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.book_online_sharp), label: 'Add Books'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.display_settings), label: 'Display'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.account_balance_outlined), label: 'Publishers'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.filter_list_alt), label: 'Categories'),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Authors'),
         ],
       ),
     );
   }
 }
-

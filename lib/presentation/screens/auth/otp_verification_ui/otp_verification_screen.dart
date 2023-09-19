@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_pdf_library/data/models/network_response.dart';
 import 'package:flutter_pdf_library/data/services/network_caller.dart';
@@ -21,14 +22,12 @@ class OTPlVerificationScreen extends StatefulWidget {
 class _OTPlVerificationScreenState extends State<OTPlVerificationScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _otpTEController =
-  TextEditingController(text: "1234");
-
+      TextEditingController(text: "1234");
 
   //TODO: set the countdown to 120
   int _countdown = 20; // Initial countdown time in seconds
   late Timer _timer;
   bool _otpVerificationInProgress = false;
-
 
   Future<void> verifyOTP() async {
     _otpVerificationInProgress = true;
@@ -41,27 +40,19 @@ class _OTPlVerificationScreenState extends State<OTPlVerificationScreen> {
       "otp": _otpTEController.text,
     };
 
-
-
     final NetworkResponse response =
-    await NetworkCaller().postRequest(Urls.otpVerify, requestBody);
+        await NetworkCaller().postRequest(Urls.otpVerify, requestBody);
     _otpVerificationInProgress = false;
-
 
     if (mounted) {
       setState(() {});
     }
     if (response.isSuccess) {
-      ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('OTP Verified')));
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text('OTP Verified')));
       if (mounted) {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) =>
-                (
-                    const LoginScreen()
-                )));
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => (const LoginScreen())));
       }
     } else {
       if (mounted) {
@@ -70,7 +61,6 @@ class _OTPlVerificationScreenState extends State<OTPlVerificationScreen> {
       }
     }
   }
-
 
   @override
   void initState() {
@@ -100,14 +90,8 @@ class _OTPlVerificationScreenState extends State<OTPlVerificationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery
-        .of(context)
-        .size
-        .height;
-    double width = MediaQuery
-        .of(context)
-        .size
-        .width;
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: AppColors.backColor,
       body: SizedBox(
@@ -120,21 +104,21 @@ class _OTPlVerificationScreenState extends State<OTPlVerificationScreen> {
             ResponsiveLayout.isPhone(context)
                 ? const SizedBox()
                 : Expanded(
-              child: Container(
-                height: height,
-                color: AppColors.mainBlueColor,
-                child: Center(
-                  child: Text(
-                    'PDF Library',
-                    style: ralewayStyle.copyWith(
-                      fontSize: 48.0,
-                      color: AppColors.whiteColor,
-                      fontWeight: FontWeight.w800,
+                    child: Container(
+                      height: height,
+                      color: AppColors.mainBlueColor,
+                      child: Center(
+                        child: Text(
+                          'PDF Library',
+                          style: ralewayStyle.copyWith(
+                            fontSize: 48.0,
+                            color: AppColors.whiteColor,
+                            fontWeight: FontWeight.w800,
+                          ),
+                        ),
+                      ),
                     ),
                   ),
-                ),
-              ),
-            ),
             Expanded(
               child: Container(
                 height: height,
@@ -181,7 +165,6 @@ class _OTPlVerificationScreenState extends State<OTPlVerificationScreen> {
                         ),
                       ),
                       SizedBox(height: height * 0.064),
-
                       Row(
                         children: [
                           Form(
@@ -206,7 +189,8 @@ class _OTPlVerificationScreenState extends State<OTPlVerificationScreen> {
                                 inactiveColor: AppColors.mainBlueColor,
                                 selectedColor: AppColors.purpleDark,
                               ),
-                              animationDuration: const Duration(milliseconds: 300),
+                              animationDuration:
+                                  const Duration(milliseconds: 300),
                               enableActiveFill: true,
                               onCompleted: (v) {},
                               onChanged: (value) {},
@@ -218,19 +202,16 @@ class _OTPlVerificationScreenState extends State<OTPlVerificationScreen> {
                           ),
                         ],
                       ),
-
-
                       const SizedBox(
                         height: 16,
                       ),
-
                       SizedBox(
                         width: double.infinity,
                         height: 45,
                         child: Visibility(
                           visible: _otpVerificationInProgress == false,
                           replacement:
-                          const Center(child: CircularProgressIndicator()),
+                              const Center(child: CircularProgressIndicator()),
                           child: ElevatedButton(
                             onPressed: () {
                               verifyOTP();
@@ -263,7 +244,8 @@ class _OTPlVerificationScreenState extends State<OTPlVerificationScreen> {
                               text: TextSpan(
                                 style: const TextStyle(color: Colors.grey),
                                 children: [
-                                  const TextSpan(text: 'This code will expire in '),
+                                  const TextSpan(
+                                      text: 'This code will expire in '),
                                   TextSpan(
                                     text: '$_countdown s',
                                     style: const TextStyle(

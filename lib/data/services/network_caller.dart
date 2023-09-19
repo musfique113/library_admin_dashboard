@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_pdf_library/data/models/auth_utility.dart';
 import 'package:flutter_pdf_library/data/models/network_response.dart';
@@ -10,7 +11,6 @@ import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
 import 'package:mime/mime.dart';
 
-
 class NetworkCaller {
   Future<NetworkResponse> getRequest(String url) async {
     try {
@@ -19,7 +19,7 @@ class NetworkCaller {
         headers: {
           'access_token': AuthUtility.userInfo.accessToken.toString(),
           HttpHeaders.authorizationHeader:
-          'Bearer ${AuthUtility.userInfo.accessToken.toString()}',
+              'Bearer ${AuthUtility.userInfo.accessToken.toString()}',
         },
       );
       log(response.statusCode.toString());
@@ -49,7 +49,7 @@ class NetworkCaller {
         headers: {
           'Content-Type': 'application/json',
           HttpHeaders.authorizationHeader:
-          'Bearer ${AuthUtility.userInfo.accessToken.toString()}',
+              'Bearer ${AuthUtility.userInfo.accessToken.toString()}',
         },
         body: jsonEncode(body),
       );
@@ -88,7 +88,7 @@ class NetworkCaller {
     try {
       final request = http.MultipartRequest('POST', Uri.parse(apiUrl));
       request.headers['Authorization'] =
-      'Bearer ${AuthUtility.userInfo.accessToken.toString()}';
+          'Bearer ${AuthUtility.userInfo.accessToken.toString()}';
 
       // Add form fields
       request.fields['name'] = name;
@@ -100,7 +100,8 @@ class NetworkCaller {
 
       // Add the image file
       final imageMimeType = lookupMimeType(imageFile.path);
-      final imageStream = http.ByteStream.fromBytes(await imageFile.readAsBytes());
+      final imageStream =
+          http.ByteStream.fromBytes(await imageFile.readAsBytes());
       request.files.add(http.MultipartFile(
         'image',
         imageStream,
@@ -119,7 +120,6 @@ class NetworkCaller {
       ));
 
       // Set authorization header
-
 
       final response = await request.send();
       final statusCode = response.statusCode;
@@ -144,6 +144,6 @@ class NetworkCaller {
     Navigator.pushAndRemoveUntil(
         LibraryDashboard.globalKey.currentContext!,
         MaterialPageRoute(builder: (context) => const LoginScreen()),
-            (route) => false);
+        (route) => false);
   }
 }
