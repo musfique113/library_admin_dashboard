@@ -17,7 +17,7 @@ class _BottomNavbarScreenState extends State<BottomNavbarScreen> {
   int _selectedScreenIndex = 0;
   final List<Widget> _screens = [
     AddBooksScreen(),
-    const DisplayBooksScreen(),
+    const DisplayBookLists(),
     const AddPublishersScreen(),
     const AddCategoriesScreen(),
     const AddAuthorsScreen()

@@ -507,7 +507,7 @@ class _AddBooksScreenState extends State<AddBooksScreen> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => DisplayBooksScreen()),
+                                builder: (context) => DisplayBookLists()),
                           );
                         },
                         style: ElevatedButton.styleFrom(
