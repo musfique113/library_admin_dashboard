@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_pdf_library/data/models/auth_utility.dart';
@@ -24,107 +23,33 @@ class _DisplayBookListsState extends State<DisplayBookLists> {
   final BookListModel _bookListModel= BookListModel();
 
 
-  //
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   // after widget binding
-  //   getInProgressTasks();
-  // }
-  //
-  // Future<void> getInProgressTasks() async {
-  //   // _getBookListInProgress = true;
-  //   if (mounted) {
-  //     setState(() {
-  //       books = json.decode(response.body)['rows'];
-  //     });
-  //   }
-  //   final NetworkResponse response =
-  //   await NetworkCaller().getRequest(Urls.displayBooksList);
-  //   if (response.isSuccess) {
-  //     BookListModel bookListModel= BookListModel.fromJson(response.body!);
-  //     await AuthUtility.getBooksList(bookListModel);
-  //     ScaffoldMessenger.of(context).showSnackBar(
-  //         const SnackBar(content: Text('Book List getting successful')));
-  //   } else {
-  //     ScaffoldMessenger.of(context).showSnackBar(
-  //         const SnackBar(content: Text('Failed')));
-  //   }
-  //   //_getBookListInProgress = false;
-  //   if (mounted) {
-  //     setState(() {});
-  //   }
-  // }
 
   @override
   void initState() {
     super.initState();
-    fetchBooks();
-    // getNewBooks();
+    getInProgressTasks();
   }
 
-  Future<void> fetchBooks() async {
-    try {
-      final userData = await AuthUtility.getUserInfo();
-      final String token = userData.accessToken.toString();
-
-      final response = await http.get(
-        Uri.parse('http://20.239.87.34:8080/books'),
-        headers: <String, String>{
-          'Authorization': 'Bearer $token',
-        },
-      );
-
-      if (response.statusCode == 200) {
-        log(response.statusCode.toString());
-        log(response.body);
-        setState(() {
-          books = json.decode(response.body)['rows'];
-        });
-      } else {
-        log(response.statusCode.toString());
-        log(response.body);
-        if (mounted) {
-          ScaffoldMessenger.of(context)
-              .showSnackBar(const SnackBar(content: Text('Failed')));
-        }
-      }
-    } catch (e) {
-
-      print('Error fetching books: $e');
-      if (mounted) {
-        ScaffoldMessenger.of(context)
-            .showSnackBar(const SnackBar(content: Text('An error occurred')));
-      }
-    }
-  }
-
-
-  Future<void> getNewBooks() async {
-    final userData = await AuthUtility.getUserInfo();
-    //final String token = userData.accessToken.toString();
-
+  Future<void> getInProgressTasks() async {
     final NetworkResponse response =
-    await NetworkCaller().getRequest(Urls.addBooks);
-
-    if (mounted) {
-      setState(() {});
-    }
+    await NetworkCaller().getRequest(Urls.displayBooksList);
     if (response.isSuccess) {
-      //final List<dynamic> responseList = jsonDecode(response.body);
-
       setState(() {
-        // books = responseList;
+        books = json.decode(response.body as String)['rows'];
       });
-      // _getBookFile = GetBookFile.fromJson(response.body!);
-      // books = _getBookFile.rows ?? [];
+      // BookListModel bookListModel= BookListModel.fromJson(response.body!);
+      // await AuthUtility.getBooksList(bookListModel);
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Book List getting successful')));
     } else {
-      if (mounted) {
-        ScaffoldMessenger.of(context)
-            .showSnackBar(const SnackBar(content: Text('Failed')));
-      }
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Failed')));
     }
+
   }
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -145,7 +70,7 @@ class _DisplayBookListsState extends State<DisplayBookLists> {
                 IconButton(
                   icon: const Icon(Icons.refresh),
                   onPressed: () {
-                   getNewBooks();
+                    //getNewBooks();
                   },
                 ),
               ],

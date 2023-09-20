@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_pdf_library/data/models/auth_utility.dart';
 import 'package:flutter_pdf_library/data/models/network_response.dart';
@@ -12,6 +13,7 @@ import 'package:http_parser/http_parser.dart';
 import 'package:mime/mime.dart';
 
 class NetworkCaller {
+
   Future<NetworkResponse> getRequest(String url) async {
     try {
       final response = await http.get(
@@ -31,7 +33,9 @@ class NetworkCaller {
           jsonDecode(response.body),
         );
       } else if (response.statusCode == 401) {
-        print('error login');
+        if (kDebugMode) {
+          print('error login');
+        }
       } else {
         return NetworkResponse(false, response.statusCode, null);
       }
@@ -40,6 +44,8 @@ class NetworkCaller {
     }
     return NetworkResponse(false, -1, null);
   }
+
+
 
   Future<NetworkResponse> postRequest(String url, Map<String, dynamic> body,
       {bool isLogin = false}) async {
